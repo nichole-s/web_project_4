@@ -2,15 +2,12 @@
 
 ### Overview
 
-* Figma
-* Images
+* In project 4 we began to use JavaScript. We learned what the DOM was and how to find elements and work with them using JavaScript. We learned how to create a modal and make it react to buttons being clicked as well as to accept text and place it on the main page. 
 
 **Figma**
 
 * [Link to the project in Figma](https://www.figma.com/file/mUgu8OSHWE0M6p6vfwmdu9/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
 
-**Images**
+**Link to project**
 
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
-
-Have fun with JavaScript!
+* https://nichole-s.github.io/web_project_4/
