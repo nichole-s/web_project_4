@@ -1,0 +1,16 @@
+.photo-grid__heading{
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+  margin: 0;
+  font-size: 24px;
+  line-height: 29px;
+  font-weight: 900;
+  max-width: 220px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+  overflow: hidden;
+  height: 32px;
+}

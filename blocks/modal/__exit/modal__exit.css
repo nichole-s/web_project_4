@@ -1,0 +1,20 @@
+.modal__exit{
+  position: absolute;
+  display: inline-block;
+  top: -40px;
+  right: -40px;
+  height: 45px;
+  width: 45px;
+  background-image: url(./../../../images/close-icon.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+
+}
+
+/*.modal__exit:hover{
+  opacity: .6;
+}*/
+

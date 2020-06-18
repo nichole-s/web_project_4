@@ -1,0 +1,18 @@
+.modal__submit{
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  color: #ffffff;
+  width: 358px;
+  height: 51.15px;
+  margin: 48px 36px 36.51px;
+  background-color: #000000;
+  box-shadow: none;
+  border: none;
+}
+@media screen and (min-width: 0) and (max-width: 550px) {
+  .modal__submit {
+    width: 70%;
+    margin-top: 20px;
+  }
+}
