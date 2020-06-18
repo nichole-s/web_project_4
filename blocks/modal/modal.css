@@ -2,9 +2,7 @@
 @import url(./__exit/modal__exit.css);
 @import url(./__heading/modal__heading.css);
 @import url(./__form/modal__form.css);
-@import url(./__name/modal__name.css);
 @import url(./__input/modal__input.css);
-@import url(./__profession/modal__profession.css);
 @import url(./__submit/modal__submit.css);
 
 .modal {
