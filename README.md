@@ -2,7 +2,7 @@
 
 ### Overview
 
-* In project 4 we began to use JavaScript. 
+* In project 4 we began to use JavaScript. We learned what the DOM was and how to find elements and work with them using JavaScript. We learned how to create a modal and make it react to buttons being clicked as well as to accept text and place it on the main page. 
 
 **Figma**
 
