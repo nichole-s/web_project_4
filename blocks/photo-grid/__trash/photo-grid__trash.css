@@ -1,0 +1,10 @@
+.photo-grid__trash{
+  background: transparent url('../../../images/trash.svg') center no-repeat;
+  position: absolute;
+  top: 19px;
+  right: 15px;
+  border: none;
+  z-index: 1;
+  height: 19.3px;
+  width: 18px;
+}

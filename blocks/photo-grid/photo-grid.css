@@ -4,5 +4,7 @@
 @import url(./__card/photo-grid__card.css);
 @import url(./__heading/photo-grid__heading.css);
 @import url(./__like/photo-grid__like.css);
+@import url(./__trash/photo-grid__trash.css);
+@import url(./__liked/photo-grid__liked.css);
 
 
