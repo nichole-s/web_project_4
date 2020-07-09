@@ -21,7 +21,7 @@ const inputCardName = formAdd.querySelector('.modal__card-name');
 const inputCardUrl = formAdd.querySelector('.modal__card-url');
 
 
-// Constants related to the image modal
+// Constants related to the image modal 
 const modalImage = document.querySelector('.modal__type_image');
 const imageCloseButton = modalImage.querySelector('.modal__exit_type_image');
 const modalImageFigure = modalImage.querySelector('.modal__image-figure');
@@ -69,13 +69,6 @@ function displayImage(title, link) {
   modalImageFigure.alt = title;
   modalImageCaption.textContent = title;
   toggleModal(modalImage);
-  
-  // const popupBackgroundImage = popupFullImage.querySelector(".popup__background");
-  // popupBackgroundImage.addEventListener("click", function() {
-  //   if (popupFullImage.classList.contains("popup_active")) {
-  //     togglePopup(popupFullImage);
-  //   }
-  // })
 };
 
 

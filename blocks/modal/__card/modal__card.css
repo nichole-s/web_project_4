@@ -4,14 +4,5 @@
   align-self: center;
   background: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 0 10px #000000;
-}
-
-.modal__card.modal__type_image {
-  max-width: 75vw;
-  max-height: 75vh;
-  background: transparent;
-  border-radius: 0;
-  box-shadow: none;
-  
+  box-shadow: 0 0 10px #000000; 
 }

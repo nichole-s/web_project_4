@@ -1,7 +1,7 @@
-.modal__image-container {
+.modal__card_type_image {
   margin: 0;
   padding: 0;
+  background: transparent;
   border-radius: 0;
-  background-color: transparent;
   box-shadow: none;
 }
