@@ -24,8 +24,8 @@ const inputCardUrl = formAdd.querySelector('.modal__card-url');
 // Constants related to the image modal
 const modalImage = document.querySelector('.modal__type_image');
 const imageCloseButton = modalImage.querySelector('.modal__exit_type_image');
-const modalImageFigure = modalImage.querySelector('.modal__image_figure');
-const modalImageCaption = modalImage.querySelector('.modal__image_caption');
+const modalImageFigure = modalImage.querySelector('.modal__image-figure');
+const modalImageCaption = modalImage.querySelector('.modal__image-caption');
 
 // Creating initial and new cards
 const cardTemplate = document.querySelector('.card-template').content.querySelector('.photo-grid__item');
@@ -97,6 +97,7 @@ const createCard = (name, link) => {
 
   cardRemoveButton.addEventListener('click', (e) => {
     e.target.closest('.photo-grid__item').remove();
+    e.stopPropagation();
   })
 
   cardImage.addEventListener('click', (e) => {
@@ -152,8 +153,10 @@ formAdd.addEventListener('submit', (evt) => {
 
   const inputCardName = formAdd.querySelector('.modal__card-name');
   const inputCardUrl = formAdd.querySelector('.modal__card-url');
+  const name = inputCardName.value;
+  const link = inputCardUrl.value;
 
-  cardList.prepend(createCard({name: inputCardName.value, link: inputCardUrl.value}));
+  cardList.prepend(createCard(name, link));
 
   toggleModal(modalAdd);
 
