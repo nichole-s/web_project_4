@@ -17,8 +17,6 @@ const modalAdd = document.querySelector('.modal__type_add-card');
 const addCardCloseButton = modalAdd.querySelector('.modal__exit_type_add-card');
 const addCardSubmitButton = modalAdd.querySelector('.modal__submit_type_add-card');
 const formAdd = modalAdd.querySelector('.modal__form_type_add-card');
-const inputCardName = formAdd.querySelector('.modal__card-name');
-const inputCardUrl = formAdd.querySelector('.modal__card-url');
 
 
 // Constants related to the image modal 
@@ -82,7 +80,6 @@ const createCard = (name, link) => {
   
   cardTitle.textContent = name;
   cardImage.style.backgroundImage = `url(${link})`;
-  cardImage.style.backgroundSize = "cover";
 
   cardLikeButton.addEventListener('click', (e) => {
     e.target.closest('.photo-grid__like').classList.toggle('photo-grid__liked');
@@ -93,8 +90,8 @@ const createCard = (name, link) => {
     e.stopPropagation();
   })
 
-  cardImage.addEventListener('click', (e) => {
-    displayImage(name, link);
+  cardImage.addEventListener('click', () => {
+    displayImage(name, link); 
 
   })
 
@@ -117,7 +114,6 @@ initialCards.forEach((data) => {
 editButton.addEventListener('click', () => {
 
  toggleModal(modalEdit);
-
  formEdit.reset();
 
 });
@@ -137,6 +133,7 @@ formEdit.addEventListener('submit', (evt) => {
   profileProfession.textContent = inputProfession.value;
   
   toggleModal(modalEdit);
+  formEdit.reset();
 
 });
 
@@ -152,6 +149,7 @@ formAdd.addEventListener('submit', (evt) => {
   cardList.prepend(createCard(name, link));
 
   toggleModal(modalAdd);
+  formAdd.reset();
 
 });  
 
