@@ -58,6 +58,25 @@ const initialCards = [
 
 function toggleModal(modal) {
   modal.classList.toggle('modal_visible');
+
+  if(modal.classList.contains('modal_visible')) {
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape'){
+          modalEdit.classList.remove('modal_visible');
+          modalAdd.classList.remove('modal_visible');
+          modalImage.classList.remove('modal_visible');
+      }
+    })
+
+  } else {
+    document.removeEventListener('keydown', (e) => {
+      if(e.key === 'Escape'){
+          modalEdit.classList.remove('modal_visible');
+          modalAdd.classList.remove('modal_visible');
+          modalImage.classList.remove('modal_visible');
+      }
+    })
+  }
 }
 
 function displayImage(title, link) {
@@ -175,13 +194,13 @@ imageCloseButton.addEventListener('click', () => {
 
 // Close modals on escape key keydown
 
-document.addEventListener('keydown', (e) => {
-  if(e.key === 'Escape'){
-      modalEdit.classList.remove('modal_visible');
-      modalAdd.classList.remove('modal_visible');
-      modalImage.classList.remove('modal_visible');
-  }
-})
+// document.addEventListener('keydown', (e) => {
+//   if(e.key === 'Escape'){
+//       modalEdit.classList.remove('modal_visible');
+//       modalAdd.classList.remove('modal_visible');
+//       modalImage.classList.remove('modal_visible');
+//   }
+// })
 
 // Close when clicking outside of modal borders
 
