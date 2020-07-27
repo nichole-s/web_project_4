@@ -1,5 +1,5 @@
 function showErrorMessage(input, form, {errorClass, inputErrorClass, ...rest}) {
-  const error = form.querySelector('#' + input.id + '-error');
+  const error = form.querySelector(`#${input.id}-error`);
 
   error.textContent = input.validationMessage;
 
@@ -8,7 +8,7 @@ function showErrorMessage(input, form, {errorClass, inputErrorClass, ...rest}) {
 }
 
 function hideErrorMessage(input, form, {errorClass, inputErrorClass, ...rest}) {
-  const error = form.querySelector('#' + input.id + '-error');
+  const error = form.querySelector(`#${input.id}-error`);
 
   error.textContent = '';
 
