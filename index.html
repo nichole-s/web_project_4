@@ -33,8 +33,10 @@
       <form class="modal__form modal__form_type_edit-profile" action="submit">
         <button class="modal__exit modal__exit_type_edit-profile button" aria-label="close popup button" type="button"></button>
         <h2 class="modal__heading">Edit Profile</h2>
-        <input id="modal__name" class="modal__name modal__input" type="text" name="modal__name" placeholder="Name">
-        <input id="modal__profession" class="modal__profession modal__input" type="text" name="modal__profession" placeholder="Description">
+        <input id="modal__name" class="modal__name modal__input" type="text" name="modal__name" placeholder="Name" required minlength="2" maxlength="40">
+        <span id="modal__name-error" class="modal__error"></span>
+        <input id="modal__profession" class="modal__profession modal__input" type="text" name="modal__profession" placeholder="Description" required minlength="2" maxlength="200">
+        <span id="modal__profession-error" class="modal__error"></span>
         <button class="modal__submit modal__submit_type_edit-profile button" type="submit">Save</button>
       </form>
     </div>
@@ -44,8 +46,10 @@
       <form class="modal__form modal__form_type_add-card" action="submit">
         <button class="modal__exit modal__exit_type_add-card button" aria-label="close popup button" type="button"></button>
         <h2 class="modal__heading modal__heading_type_add-card">New Place</h2>
-        <input id="modal__card-name" class="modal__card-name modal__input" type="text" name="modal__card-name" placeholder="Title">
-        <input id="modal__card-url" class="modal__card-url modal__input" type="url" name="modal__card-url" placeholder="Image Link">
+        <input id="modal__card-name" class="modal__card-name modal__input" type="text" name="modal__card-name" placeholder="Title" required minlength="1" maxlength="30">
+        <span id="modal__card-name-error" class="modal__error"></span>
+        <input id="modal__card-url" class="modal__card-url modal__input" type="url" name="modal__card-url" placeholder="Image Link" required>
+        <span id="modal__card-url-error" class="modal__error"></span>
         <button class="modal__submit modal__submit_type_add-card button" type="submit">Create</button>
       </form>
     </div>
@@ -72,6 +76,7 @@
       </div>
     </li>
   </template>
+  <script src="validation.js"></script>
   <script src="index.js"></script>
 </body>
 </html> 

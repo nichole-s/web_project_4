@@ -10,6 +10,9 @@
 @import url(./__image-container/modal__image-container.css);
 @import url(./__type_image/modal__type_image.css);
 @import url(./__card_type_image/modal__card_type_image.css);
+@import url(./__input/modal__input_type_error.css);
+@import url(./__submit/modal__submit_disabled.css);
+@import url(./__error/modal__error_visible.css);
 
 
 .modal {

@@ -1,0 +1,7 @@
+.modal__submit_disabled {
+  pointer-events: none;
+  cursor: not-allowed;
+  background-color: #e5e5e5;
+  color: #000000;
+  opacity: 0.2;
+}

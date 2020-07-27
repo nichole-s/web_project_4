@@ -3,7 +3,6 @@
 const editButton = document.querySelector('.profile__edit');
 const modalEdit = document.querySelector('.modal__type_edit-profile');
 const editProfileCloseButton = modalEdit.querySelector('.modal__exit_type_edit-profile');
-const editProfileSubmitButton = modalEdit.querySelector('.modal__submit_type_edit-profile');
 const formEdit = modalEdit.querySelector('.modal__form_type_edit-profile');
 const inputName = formEdit.querySelector('.modal__name');
 const inputProfession = formEdit.querySelector('.modal__profession');
@@ -173,3 +172,26 @@ addCardSubmitButton.addEventListener('click', () => {
 imageCloseButton.addEventListener('click', () => {
  toggleModal(modalImage);
 });
+
+// Close modals on escape key keydown
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape'){
+      modalEdit.classList.remove('modal_visible');
+      modalAdd.classList.remove('modal_visible');
+      modalImage.classList.remove('modal_visible');
+  }
+})
+
+// Close when clicking outside of modal borders
+
+const modals = Array.from(document.querySelectorAll('.modal'));
+const modalForm = Array.from(document.querySelectorAll('.modal__form'));
+
+  modals.forEach((modal)=> {
+    document.addEventListener('click', (e) => {
+      if((e.target === modal) && (e.target !== modalForm)) {
+        modal.classList.remove('modal_visible');
+      }
+    })
+  })

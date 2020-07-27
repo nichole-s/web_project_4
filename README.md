@@ -1,12 +1,23 @@
-# Project 4: Around The U.S.
+# Project 4 & 5: Around The U.S.
 
 ### Overview
 
 * In project 4 we began to use JavaScript. We learned what the DOM was and how to find elements and work with them using JavaScript. We learned how to create a modal and make it react to buttons being clicked as well as to accept text and place it on the main page. 
 
+* In project 5 we learned how to use templates in HTML and how to use JavaScript to create elements and add them to the DOM. 
+
+* In project 6 we focused on form validation and new ways to use event listeners for site interactivity with our modals as well as smooth transitions.
+
+
+
 **Figma**
 
-* [Link to the project in Figma](https://www.figma.com/file/mUgu8OSHWE0M6p6vfwmdu9/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
+* [Link to design for project 4 in Figma](https://www.figma.com/file/mUgu8OSHWE0M6p6vfwmdu9/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
+
+* [Link to design for project 5 in Figma](https://www.figma.com/file/avLHzpJw2dmU2NaDATZ6CX/Sprint-5%3A-Around-The-U.S.-%2F-desktop-%2B-mobile?node-id=0%3A1)
+
+* [Link to design for project 6 in Figma](https://www.figma.com/file/KUbYgXnYElfzxCbcrlsOCE/Sprint-6%3A-Around-The-U.S.?node-id=0%3A1)
+
 
 **Link to project**
 
