@@ -59,24 +59,38 @@ const initialCards = [
 function toggleModal(modal) {
   modal.classList.toggle('modal_visible');
 
-  if(modal.classList.contains('modal_visible')) {
-    document.addEventListener('keydown', (e) => {
-      if(e.key === 'Escape'){
-          modalEdit.classList.remove('modal_visible');
-          modalAdd.classList.remove('modal_visible');
-          modalImage.classList.remove('modal_visible');
-      }
-    })
-
-  } else {
-    document.removeEventListener('keydown', (e) => {
-      if(e.key === 'Escape'){
-          modalEdit.classList.remove('modal_visible');
-          modalAdd.classList.remove('modal_visible');
-          modalImage.classList.remove('modal_visible');
-      }
-    })
+   const escClose = (e) => {
+    if(e.key === 'Escape'){
+      modalEdit.classList.remove('modal_visible');
+      modalAdd.classList.remove('modal_visible');
+      modalImage.classList.remove('modal_visible');
+    }
   }
+
+  if(modal.classList.contains('modal_visible')) {
+    document.addEventListener('keydown', escClose)
+  } else {
+    document.removeEventListener('keydown', escClose)
+  }
+
+  // if(modal.classList.contains('modal_visible')) {
+  //   document.addEventListener('keydown', (e) => {
+  //     if(e.key === 'Escape'){
+  //         modalEdit.classList.remove('modal_visible');
+  //         modalAdd.classList.remove('modal_visible');
+  //         modalImage.classList.remove('modal_visible');
+  //     }
+  //   })
+
+  // } else {
+  //   document.removeEventListener('keydown', (e) => {
+  //     if(e.key === 'Escape'){
+  //         modalEdit.classList.remove('modal_visible');
+  //         modalAdd.classList.remove('modal_visible');
+  //         modalImage.classList.remove('modal_visible');
+  //     }
+  //   })
+  // }
 }
 
 function displayImage(title, link) {
