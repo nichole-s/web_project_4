@@ -8,6 +8,8 @@
 
 * In project 6 we focused on form validation and new ways to use event listeners for site interactivity with our modals as well as smooth transitions.
 
+* In project 7 we switched to object oriented programming. From the outside, this appeared to be an easy task - just rewrite what we already had. It proved to be a great learning experience in how functions and methods work (and DON'T work!!) as well as how to make sure different blocks of code can work together to ensure the functionality of the project. In this project, the importance of making one change at a time and then debugging was made very clear.
+
 
 
 **Figma**
