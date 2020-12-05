@@ -17,15 +17,8 @@ export function toggleModal(modal) {
     document.removeEventListener('keydown', escClose)
   }
 
-  modals.forEach((modal)=> {
-    document.addEventListener('click', (e) => {
-      if((e.target === modal) && (e.target !== modalForm)) {
-        modal.classList.remove('modal_visible');
-      }
-    })
-  })
-
 }
+
 
 export function displayImage(name, link) {
  

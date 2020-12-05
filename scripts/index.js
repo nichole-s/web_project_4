@@ -1,6 +1,6 @@
 import FormValidator from './FormValidator.js';
 import { toggleModal } from './utils.js'
-import { modalEdit, modalAdd, modalImage } from './constants.js';
+import { modalEdit, modalAdd, modalImage, modals, modalForm, initialCards } from './constants.js';
 import Card from './Card.js';
 
 const defaultConfig = {
@@ -32,40 +32,14 @@ const profileProfession = document.querySelector('.profile__profession');
 // Constants related to adding a card
 const addButton = document.querySelector('.profile__add');
 const addCardCloseButton = modalAdd.querySelector('.modal__exit_type_add-card');
+const inputCardName = formAdd.querySelector('.modal__card-name');
+const inputCardUrl = formAdd.querySelector('.modal__card-url');
 
 // Constants related to the image modal 
 const imageCloseButton = modalImage.querySelector('.modal__exit_type_image');
 
 // Creating initial and new cards
 const cardList = document.querySelector('.photo-grid__items');
-
-const initialCards = [
-  {
-      name: "Yosemite Valley",
-      link: "https://code.s3.yandex.net/web-code/yosemite.jpg"
-  },
-  {
-      name: "Lake Louise",
-      link: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
-  },
-  {
-      name: "Bald Mountains",
-      link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
-  },
-  {
-      name: "Latemar",
-      link: "https://code.s3.yandex.net/web-code/latemar.jpg"
-  },
-  {
-      name: "Vanois National Park",
-      link: "https://code.s3.yandex.net/web-code/vanois.jpg"
-  },
-  {
-      name: "Lago di Braies",
-      link: "https://code.s3.yandex.net/web-code/lago.jpg"
-  }
-];
-
 
 const renderCard = (data) => {
   const card = new Card(data, '#card-template');
@@ -79,11 +53,21 @@ initialCards.forEach((data) => {
 
 })
 
+modals.forEach((modal) => {
+  document.addEventListener('click', (e) => {
+    if ((e.target === modal) && (e.target !== modalForm)) {
+      modal.classList.remove('modal_visible');
+    }
+
+  })
+})
 
 editButton.addEventListener('click', () => {
 
  toggleModal(modalEdit);
- formEdit.reset();
+
+ inputName.value = profileName.textContent;
+ inputProfession.value = profileProfession.textContent;
 
 });
 
@@ -92,7 +76,6 @@ editProfileCloseButton.addEventListener('click', () => {
  toggleModal(modalEdit);
 
 });
-
 
 formEdit.addEventListener('submit', (evt) => {
   
@@ -110,8 +93,6 @@ formAdd.addEventListener('submit', (evt) => {
 
   evt.preventDefault();
 
-  const inputCardName = formAdd.querySelector('.modal__card-name');
-  const inputCardUrl = formAdd.querySelector('.modal__card-url');
   const name = inputCardName.value;
   const link = inputCardUrl.value;
   
@@ -123,7 +104,6 @@ formAdd.addEventListener('submit', (evt) => {
 
 addButton.addEventListener('click', () => {
  toggleModal(modalAdd);
- formAdd.reset();
 });
 
 addCardCloseButton.addEventListener('click', () => {
