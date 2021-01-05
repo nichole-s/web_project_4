@@ -1,9 +1,16 @@
 import FormValidator from './FormValidator.js';
-import { toggleModal } from './utils.js'
-import { modalEdit, modalAdd, modalImage, modals, modalForm, initialCards } from './constants.js';
+//import { toggleModal } from './utils.js'
+import { modalEdit, modalAdd, modalImage, modals, modalForm, initialCards, addButton, editButton, profileName, profileProfession } from './constants.js';
 import Card from './Card.js';
+import Section from './Section.js';
+import Popup from './Popup.js';
+import PopupWithImage from './PopupWithImage.js';
+import PopupWithForm from './PopupWithForm.js';
+import UserInfo from './UserInfo.js';
 
+// Constants related to the form and form validation; Creating the instance of form validator for the edit profile and add photo card forms
 const defaultConfig = {
+  formSelector: ".modal__form",
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__submit",
   inactiveButtonClass: "modal__submit_disabled",
@@ -11,7 +18,6 @@ const defaultConfig = {
   errorClass: "modal__error_visible",
 };
 
-// Constants related to the form and form validation
 const formAdd = modalAdd.querySelector('.modal__form_type_add-card');
 const formEdit = modalEdit.querySelector('.modal__form_type_edit-profile');
 const addCardFormValidator = new FormValidator(defaultConfig, formAdd);
@@ -20,96 +26,64 @@ const editCardFormValidator = new FormValidator(defaultConfig, formEdit);
 addCardFormValidator.enableValidation();
 editCardFormValidator.enableValidation();
 
+// Create instance of the enlarged photo popup
+const imagePopup = new PopupWithImage({
+  popupSelector: '.modal__type_image'});
+imagePopup.setEventListeners(); 
 
-// Constants related to the profile
-const editButton = document.querySelector('.profile__edit');
-const editProfileCloseButton = modalEdit.querySelector('.modal__exit_type_edit-profile');
-const inputName = formEdit.querySelector('.modal__name');
-const inputProfession = formEdit.querySelector('.modal__profession');
-const profileName = document.querySelector('.profile__name');
-const profileProfession = document.querySelector('.profile__profession');
-
-// Constants related to adding a card
-const addButton = document.querySelector('.profile__add');
-const addCardCloseButton = modalAdd.querySelector('.modal__exit_type_add-card');
-const inputCardName = formAdd.querySelector('.modal__card-name');
-const inputCardUrl = formAdd.querySelector('.modal__card-url');
-
-// Constants related to the image modal 
-const imageCloseButton = modalImage.querySelector('.modal__exit_type_image');
-
-// Creating initial and new cards
-const cardList = document.querySelector('.photo-grid__items');
-
-const renderCard = (data) => {
-  const card = new Card(data, '#card-template');
-
-  cardList.prepend(card.generateCard());
-}
-  
-initialCards.forEach((data) => {
-
-  renderCard(data);
-
-})
-
-modals.forEach((modal) => {
-  document.addEventListener('click', (e) => {
-    if ((e.target === modal) && (e.target !== modalForm)) {
-      modal.classList.remove('modal_visible');
+//Create individual cards, including initial cards
+function createCard(cardData) {
+  return new Card({
+    data: cardData,
+    handleCardClick: (name, link) => {
+      imagePopup.open(name, link)
     }
+  }, '.card-template').generateCard()
+}
 
+const cardsList = new Section({
+  items: initialCards,
+  renderer: createCard
+}, '.photo-grid__items')
+
+cardsList.renderer();
+
+
+const addFormPopup = new PopupWithForm({
+  popupSelector: '.modal__type_add-card',
+  popupSubmit: ([name, link]) => {
+    const nextCard = createCard({name, link})
+    cardSection.addItem(nextCard);
+   }
   })
+
+addFormPopup.setEventListeners();
+
+addButton.addEventListener('click', (e) => {
+  addFormPopup.open();
+ }); 
+
+const userInformation =  new UserInfo ({
+  userNameSelector: '.modal__name',
+  userJobSelector: '.modal__profession'
 })
 
-editButton.addEventListener('click', () => {
+const editFormPopup = new PopupWithForm({
+  popupSelector: '.modal__type_edit-profile',
+  popupSubmit: ([userNameSelector, userJobSelector]) => {
+    userInformation.setUserInfo(userNameSelector, userJobSelector); 
+  } 
+})  
 
- toggleModal(modalEdit);
 
- inputName.value = profileName.textContent;
- inputProfession.value = profileProfession.textContent;
+editFormPopup.setEventListeners();
 
-});
-
-editProfileCloseButton.addEventListener('click', () => {
-
- toggleModal(modalEdit);
-
-});
-
-formEdit.addEventListener('submit', (evt) => {
-  
-  evt.preventDefault();
-
-  profileName.textContent = inputName.value;
-  profileProfession.textContent = inputProfession.value;
-  
-  toggleModal(modalEdit);
-  formEdit.reset();
-
-});
-
-formAdd.addEventListener('submit', (evt) => {
-
-  evt.preventDefault();
-
-  const name = inputCardName.value;
-  const link = inputCardUrl.value;
-  
-  renderCard({name, link});
-  toggleModal(modalAdd);
-  formAdd.reset();
-
-});  
-
-addButton.addEventListener('click', () => {
- toggleModal(modalAdd);
-});
-
-addCardCloseButton.addEventListener('click', () => {
- toggleModal(modalAdd);
-});
-
-imageCloseButton.addEventListener('click', () => {
- toggleModal(modalImage);
-});
+ //event listener for editButton 
+ editButton.addEventListener('click', (e) => {
+   
+  const userData = userInformation.getUserInfo();
+    profileName.value = userData.name
+    profileProfession.value = userData.job
+   
+  editFormPopup.open();
+}) 

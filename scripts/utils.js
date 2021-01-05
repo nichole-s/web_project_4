@@ -1,29 +1,53 @@
-import { modalEdit, modalAdd, modalImage, modals, modalForm, modalImageFigure, modalImageCaption } from './constants.js';
+// import { modalImage, modalImageFigure, modalImageCaption } from './constants.js';
 
-export function toggleModal(modal) {
-  modal.classList.toggle('modal_visible');
+// // export function toggleModal(modal) {
+// //   modal.classList.toggle('modal_visible');
+// //    const escClose = (e) => {
+// //     if(e.key === 'Escape'){
+// //       modal.classList.remove('modal_visible');
+// //     }
+// //   }
+// //   if(modal.classList.contains('modal_visible')) {
+// //     document.addEventListener('keydown', escClose)
+// //   } else {
+// //     document.removeEventListener('keydown', escClose)
+// //   }
+// // }
 
-   const escClose = (e) => {
-    if(e.key === 'Escape'){
-      modalEdit.classList.remove('modal_visible');
-      modalAdd.classList.remove('modal_visible');
-      modalImage.classList.remove('modal_visible');
-    }
-  }
+// export function displayImage(name, link) {
+//   modalImageFigure.src = link;
+//   modalImageFigure.alt = name;
+//   modalImageCaption.textContent = name;
+//   toggleModal(modalImage);
+// };
 
-  if(modal.classList.contains('modal_visible')) {
-    document.addEventListener('keydown', escClose)
-  } else {
-    document.removeEventListener('keydown', escClose)
-  }
+// import { modalEdit, modalAdd, modalImage, modals, modalForm, modalImageFigure, modalImageCaption } from './constants.js';
 
-}
+// export function toggleModal(modal) {
+//   modal.classList.toggle('modal_visible');
+
+  // Added this funtionality in Card.js and Popup.js
+  //  const escClose = (e) => {
+  //   if(e.key === 'Escape'){
+  //     modalEdit.classList.remove('modal_visible');
+  //     modalAdd.classList.remove('modal_visible');
+  //     modalImage.classList.remove('modal_visible');
+  //   }
+  // }
+
+  // if(modal.classList.contains('modal_visible')) {
+  //   document.addEventListener('keydown', escClose)
+  // } else {
+  //   document.removeEventListener('keydown', escClose)
+  // }
+
+//}
 
 
-export function displayImage(name, link) {
+// export function displayImage(name, link) {
  
-  modalImageFigure.src = link;
-  modalImageFigure.alt = name;
-  modalImageCaption.textContent = name;
-  toggleModal(modalImage);
-};
+//   modalImageFigure.src = link;
+//   modalImageFigure.alt = name;
+//   modalImageCaption.textContent = name;
+//   toggleModal(modalImage);
+// };

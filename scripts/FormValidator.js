@@ -1,3 +1,7 @@
+// Create the FormValidator class, which sets settings for validating form fields according to the following requirements:
+// Its constructor has two parameters. 
+// The first parameter is a settings object that stores selectors and form classes, 
+// and the second one takes a form element to be validated.
 class FormValidator {
   constructor(settings, formElement) {
     this._inputSelector = settings.inputSelector;
@@ -8,6 +12,9 @@ class FormValidator {
     this._form = formElement;
     this._inputs = [...this._form.querySelectorAll(this._inputSelector)];
   }
+// It has private methods for processing the form, which include: 
+// checking the field's validity, changing the state of the Submit button, 
+// and adding all the needed handlers.
   _showErrorMessage(input) {
     const error = document.querySelector(`#${input.id}-error`);
     error.textContent = input.validationMessage;
@@ -45,6 +52,7 @@ class FormValidator {
       });
     });
   }
+  // It has one public method enableValidation(), which enables form validation.
   enableValidation() {
     this._form.addEventListener("submit", (e) => {
       return false;
@@ -53,3 +61,11 @@ class FormValidator {
   }
 }
 export default FormValidator;
+
+// Create the FormValidator class, which sets settings for validating form fields according to the following requirements:
+// Its constructor has two parameters. 
+// The first parameter is a settings object that stores selectors and form classes, and the second one takes a form element to be validated.
+// It has private methods for processing the form, which include: 
+// checking the field's validity, changing the state of the Submit button, and adding all the needed handlers.
+// It has one public method enableValidation(), which enables form validation.
+// Create an instance of the FormValidator class for each form that should be validated.

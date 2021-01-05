@@ -10,6 +10,8 @@
 
 * In project 7 we switched to object oriented programming. From the outside, this appeared to be an easy task - just rewrite what we already had. It proved to be a great learning experience in how functions and methods work (and DON'T work!!) as well as how to make sure different blocks of code can work together to ensure the functionality of the project. In this project, the importance of making one change at a time and then debugging was made very clear.
 
+* In project 8 we learned about destructuring and continued to transition our code over to object oriented programming. We also learned about project building, Node Package Manager, Webpack and plugins to work with our HTML, CSS, image, and font files. 
+
 
 
 **Figma**
