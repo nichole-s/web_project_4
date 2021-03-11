@@ -5,7 +5,7 @@ export default class Card {
     this._name = data.name;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
-    this._cardTemplate = document.querySelector(templateSelector).content;//.querySelector('.photo-grid__item');
+    this._cardTemplate = document.querySelector(templateSelector).content.querySelector('.photo-grid__item');
   }
 
   _getCardTemplate() {
@@ -16,19 +16,7 @@ export default class Card {
     modalImageFigure.src = this._link;
     modalImageFigure.alt = this._name;
     modalImageCaption.textContent = this._name;
-    //toggleModal(modalImage);
   };
-
-  // _imageModal() { 
-  //   popupPic.setAttribute('src', this._link); 
-  //   popupPic.setAttribute('alt', this._name); 
-  //   popupCaption.textContent = this._name; 
-  // } 
-
-  // _cardImageSelector(){
-  //   this._displayImage();
-  //   openModal(imagePopup);
-  // }
 
   _handleLike() {
     this.classList.toggle('photo-grid__liked');  
@@ -46,19 +34,19 @@ export default class Card {
 
     this._cardRemoveButton.addEventListener("click", this._handleDelete);
 
-    this._cardImage.addEventListener("click", () => this._handleCardClick(this._name, this._link));
+    this._cardImage.addEventListener("click", () => this._handleCardClick);
+
   }
 
-  generateCard() { //createCard()
-  //this._card = this._cardTemplate.cloneNode(true);
-    this._card = this._getCardTemplate(); //cardElement
+  generateCard() { 
+    this._card = this._getCardTemplate(); 
     this._cardImage = this._card.querySelector('.photo-grid__photo');
     this._cardImage.style.backgroundImage = `url(${this._link})`;
     this._card.querySelector('.photo-grid__heading').textContent = this._name;
-    this._cardLikeButton = this._card.querySelector('.photo-grid__like'); //cardLike
-    this._cardRemoveButton = this._card.querySelector('.photo-grid__trash'); //cardTrash
+    this._cardLikeButton = this._card.querySelector('.photo-grid__like'); 
+    this._cardRemoveButton = this._card.querySelector('.photo-grid__trash'); 
     this._setEventListeners();
-    return this._card; //._was this._cardElement at one time - watch for typos
+    return this._card; 
   }
 }; 
 
@@ -75,4 +63,3 @@ export default class Card {
 // Connect the Card class to the popup. 
 // Make Card take the handleCardClick() function into the constructor. 
 // When the user clicks on the card, this function will open the popup with an image.
-

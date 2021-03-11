@@ -13,6 +13,18 @@ export const modalImageFigure = modalImage.querySelector('.modal__image-figure')
 export const modalImageCaption = modalImage.querySelector('.modal__image-caption');
 export const profileName = document.querySelector('.profile__name');
 export const profileProfession = document.querySelector('.profile__profession');
+export const formAdd = modalAdd.querySelector('.modal__form_type_add-card');
+export const formEdit = modalEdit.querySelector('.modal__form_type_edit-profile');
+export const cardSection = document.querySelector('.photo-grid__items');
+export const defaultConfig = {
+    formSelector: ".modal__form",
+    inputSelector: ".modal__input",
+    submitButtonSelector: ".modal__submit",
+    inactiveButtonClass: "modal__submit_disabled",
+    inputErrorClass: "modal__input_type_error",
+    errorClass: "modal__error_visible",
+  };
+
 export const initialCards = [
   {
       name: "Yosemite Valley",
