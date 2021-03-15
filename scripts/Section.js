@@ -14,26 +14,6 @@ class Section {
       this._renderer(item);
     })
   }
-
-  // // Iterate through array and render each item.
-  // renderer(){
-  //   this._items.forEach(item => {
-  //       this._container.prepend(this._renderer(item))
-  //   }); 
-  // }(item)
-
-  // this._items.forEach(item => {
-  //   this._renderer(item);
-  // })
-
-  // // renderer() {
-  // //   this._items.forEach(item => this._renderer(item));
-  // // }
-
-  // //Add item to the page
-  // addItem(element) {
-  //   this._container.prepend(element);
-  // }
 }
 
 export default Section; 

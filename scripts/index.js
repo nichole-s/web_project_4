@@ -54,13 +54,17 @@ cardList.renderItems();
 const addFormPopup = new PopupWithForm({
   popupSelector: '.modal__type_add-card',
   popupSubmit: (data) => {
-    const {modal__cardname:name, modal__cardurl:link} = data;
-
     const nextCard = new Card ({
-      data,
+      data: {
+        link: data.modal__cardurl,
+        name: data.modal__cardname
+      },
       handleCardClick: ((name, link) => {
+        console.log(name);
+        console.log(link);
         imagePopup.open(name, link)
-      }) }, "#card-template"); 
+      }) 
+    }, "#card-template"); 
       const newCardElement = nextCard.generateCard();
     cardList.addItem(newCardElement);
    }
@@ -72,10 +76,6 @@ addButton.addEventListener('click', (e) => {
   addFormPopup.open();
  }); 
 
-// const userInformation =  new UserInfo ({
-//   userNameSelector: '.profile__name',
-//   userJobSelector: '.profile__profession'
-// });
 
 const editFormPopup = new PopupWithForm({
   popupSelector: '.modal__type_edit-profile',
@@ -84,7 +84,7 @@ const editFormPopup = new PopupWithForm({
 
     const newUser = new UserInfo('.profile__name', '.profile__profession');
 
-    newUser.setUserInfo({userName, userJob});
+    newUser.setUserInfo(userName, userJob);
 }
 })  
 
@@ -93,14 +93,11 @@ editFormPopup.setEventListeners();
 
  //event listener for editButton 
  editButton.addEventListener('click', (e) => {
-
   const userInformation =  new UserInfo ('.profile__name', '.profile__profession');
-   
+
   const userData = userInformation.getUserInfo();
     profileName.textContent = userData.name
     profileProfession.textContent = userData.job
-    // profileName.value = userData.name
-    // profileProfession.value = userData.job
    
   editFormPopup.open();
-}) 
+})  

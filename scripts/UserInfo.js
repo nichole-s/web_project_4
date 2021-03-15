@@ -8,9 +8,9 @@ class UserInfo {
     return {name:this._profileNameElement.textContent, job:this._profileJobElement.textContent};
   }
 
-setUserInfo({userName, userJob}) {
-    this._profileNameElement.textContent = userName.value;
-    this._profileJobElement.textContent = userJob.value;
+setUserInfo(userName, userJob) {
+    this._profileNameElement.textContent = userName;
+    this._profileJobElement.textContent = userJob;
   }
 } 
 
