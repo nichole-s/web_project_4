@@ -1,5 +1,5 @@
 .profile__edit{
-  background-image: url('../../../images/pencil-vector.svg');
+  background-image: url('./../../../../src/images/pencil-vector.svg');
   position: absolute;
   top: 19px;
   right: 0;

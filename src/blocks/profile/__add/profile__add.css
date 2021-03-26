@@ -1,5 +1,5 @@
 .profile__add{
-  background: #000000 url('../../../images/add-vector.svg') center no-repeat;
+  background: #000000 url('./../../../../src/images/add-vector.svg') center no-repeat;
   width: 150px;
   height: 50px;
   padding: 0;

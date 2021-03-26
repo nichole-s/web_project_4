@@ -1,4 +1,5 @@
-import FormValidator from './FormValidator.js';
+import "./index.css";
+import FormValidator from './scripts/FormValidator.js';
 //import { toggleModal } from './utils.js'
 import { 
   defaultConfig, 
@@ -6,7 +7,7 @@ import {
   modalAdd, 
   modalImage, 
   modals, 
-  modalForm, 
+  modalForm,
   initialCards, 
   addButton, 
   editButton, 
@@ -15,13 +16,13 @@ import {
   formAdd, 
   formEdit,
   cardSection
- } from './constants.js';
-import Card from './Card.js';
-import Section from './Section.js';
-import Popup from './Popup.js';
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js';
-import UserInfo from './UserInfo.js';
+ } from './scripts/constants.js';
+import Card from './scripts/Card.js';
+import Section from './scripts/Section.js';
+import Popup from './scripts/Popup.js';
+import PopupWithImage from './scripts/PopupWithImage.js';
+import PopupWithForm from './scripts/PopupWithForm.js';
+import UserInfo from './scripts/UserInfo.js';
 
 // Creating the instance of form validator for the edit profile and add photo card forms
 
@@ -60,8 +61,6 @@ const addFormPopup = new PopupWithForm({
         name: data.modal__cardname
       },
       handleCardClick: ((name, link) => {
-        console.log(name);
-        console.log(link);
         imagePopup.open(name, link)
       }) 
     }, "#card-template"); 
