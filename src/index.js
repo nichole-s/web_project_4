@@ -23,6 +23,14 @@ import Popup from './scripts/Popup.js';
 import PopupWithImage from './scripts/PopupWithImage.js';
 import PopupWithForm from './scripts/PopupWithForm.js';
 import UserInfo from './scripts/UserInfo.js';
+import headerLogoSrc from './../src/images/logo-vector.svg';
+import avatarPhotoSrc from './../src/images/avatar-photo.jpg';
+
+const logoImage = document.getElementById('header-logo');
+logoImage.src = headerLogoSrc; 
+
+const avatarImage = document.getElementById('avatar-photo');
+avatarImage.src = avatarPhotoSrc;
 
 // Creating the instance of form validator for the edit profile and add photo card forms
 
