@@ -1,11 +1,11 @@
 export const cardList = document.querySelector('.photo-grid__items');
-export const modalEdit = document.querySelector('.modal__type-edit-profile');
+export const modalEdit = document.querySelector('.modal-type-edit-profile');
 export const editButton = document.querySelector('.profile__edit');
 export const editProfileCloseButton = modalEdit.querySelector('.modal__exit_type_edit-profile');
-export const modalAdd = document.querySelector('.modal__type-add-card');
+export const modalAdd = document.querySelector('.modal-type-add-card');
 export const addButton = document.querySelector('.profile__add');
 export const addCardCloseButton = modalAdd.querySelector('.modal__exit_type_add-card');
-export const modalImage = document.querySelector('.modal__type-image');  
+export const modalImage = document.querySelector('.modal-type-image');  
 export const imageCloseButton = modalImage.querySelector('.modal__exit_type_image');
 export const modals = Array.from(document.querySelectorAll('.modal'));
 export const modalForm = Array.from(document.querySelectorAll('.modal__form')); 
