@@ -43,7 +43,7 @@ editCardFormValidator.enableValidation();
 
 // Create instance of the enlarged photo popup
 const imagePopup = new PopupWithImage({
-  popupSelector: '.modal__type_image'});
+  popupSelector: '.modal__type-image'});
 imagePopup.setEventListeners(); 
 
 const cardList = new Section({
@@ -61,7 +61,7 @@ const cardList = new Section({
 cardList.renderItems();
 
 const addFormPopup = new PopupWithForm({
-  popupSelector: '.modal__type_add-card',
+  popupSelector: '.modal__type-add-card',
   popupSubmit: (data) => {
     const nextCard = new Card ({
       data: {
@@ -85,7 +85,7 @@ addButton.addEventListener('click', (e) => {
 
 
 const editFormPopup = new PopupWithForm({
-  popupSelector: '.modal__type_edit-profile',
+  popupSelector: '.modal__type-edit-profile',
   popupSubmit: (data) => {
     const {modal__name:userName, modal__profession:userJob} = data;
 
@@ -107,4 +107,4 @@ editFormPopup.setEventListeners();
     profileProfession.textContent = userData.job
    
   editFormPopup.open();
-})  
+})   
