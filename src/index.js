@@ -71,7 +71,6 @@ const addFormPopup = new PopupWithForm({
     const {modal__cardname: name, modal__cardurl: link} = data;
     createCard({name, link});
     addFormPopup.close();
-    console.log(data);
   }
 })
 
