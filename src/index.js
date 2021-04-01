@@ -48,37 +48,32 @@ const imagePopup = new PopupWithImage({
   popupSelector: '.modal-type-image'});
 imagePopup.setEventListeners(); 
 
+const createCard = (data) => {
+  const card = new Card({data, handleCardClick: ((name, link) => {
+    imagePopup.open(name, link);
+  })}, '#card-template');
+  const cardElement = card.generateCard();
+  cardList.addItem(cardElement);
+}
+
 const cardList = new Section({
   items: initialCards,
   renderer: (data) => {
-    const card = new Card({data, 
-      handleCardClick: ((name, link) => {
-        imagePopup.open(name, link)
-      }) }, "#card-template");
-    const cardElement = card.generateCard();
-    //createCard(data);
-    cardList.addItem(cardElement);
+    createCard(data)
   }
 }, '.photo-grid__items');
 
 cardList.renderItems();
+
 const addFormPopup = new PopupWithForm({
   popupSelector: '.modal-type-add-card',
   popupSubmit: (data) => {
-    const nextCard = new Card ({
-      data: {
-        link: cardData.modal__cardurl,
-        name: cardData.modal__cardname
-      },
-      handleCardClick: ((name, link) => {
-        imagePopup.open(name, link)
-      }) 
-    }, "#card-template"); 
-      const newCardElement = nextCard.generateCard();
-    cardList.addItem(newCardElement);
+    const {modal__cardname: name, modal__cardurl: link} = data;
+    createCard({name, link});
     addFormPopup.close();
-   }
-  })
+    console.log(data);
+  }
+})
 
 addFormPopup.setEventListeners();
 
