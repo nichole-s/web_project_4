@@ -12,12 +12,6 @@ export default class Card {
     return this._cardTemplate.cloneNode(true);
   }
 
-  _displayImage() {
-    modalImageFigure.src = this._link;
-    modalImageFigure.alt = this._name;
-    modalImageCaption.textContent = this._name;
-  };
-
   _handleLike() {
     this.classList.toggle('photo-grid__liked');  
   }

@@ -15,7 +15,9 @@ import {
   profileProfession,  
   formAdd, 
   formEdit,
-  cardSection
+  cardSection,
+  modalName,
+  modalProfession
  } from './scripts/constants.js';
 import Card from './scripts/Card.js';
 import Section from './scripts/Section.js';
@@ -49,24 +51,24 @@ imagePopup.setEventListeners();
 const cardList = new Section({
   items: initialCards,
   renderer: (data) => {
-    const card = new Card({data,
+    const card = new Card({data, 
       handleCardClick: ((name, link) => {
         imagePopup.open(name, link)
       }) }, "#card-template");
     const cardElement = card.generateCard();
+    //createCard(data);
     cardList.addItem(cardElement);
   }
 }, '.photo-grid__items');
 
 cardList.renderItems();
-
 const addFormPopup = new PopupWithForm({
   popupSelector: '.modal-type-add-card',
   popupSubmit: (data) => {
     const nextCard = new Card ({
       data: {
-        link: data.modal__cardurl,
-        name: data.modal__cardname
+        link: cardData.modal__cardurl,
+        name: cardData.modal__cardname
       },
       handleCardClick: ((name, link) => {
         imagePopup.open(name, link)
@@ -74,6 +76,7 @@ const addFormPopup = new PopupWithForm({
     }, "#card-template"); 
       const newCardElement = nextCard.generateCard();
     cardList.addItem(newCardElement);
+    addFormPopup.close();
    }
   })
 
@@ -83,28 +86,25 @@ addButton.addEventListener('click', (e) => {
   addFormPopup.open();
  }); 
 
+const newUserInfo = new UserInfo('.profile__name', '.profile__profession');
 
 const editFormPopup = new PopupWithForm({
   popupSelector: '.modal-type-edit-profile',
   popupSubmit: (data) => {
     const {modal__name:userName, modal__profession:userJob} = data;
 
-    const newUser = new UserInfo('.profile__name', '.profile__profession');
-
-    newUser.setUserInfo(userName, userJob);
+    newUserInfo.setUserInfo(userName, userJob);
+    editFormPopup.close();
 }
 })  
-
 
 editFormPopup.setEventListeners();
 
  //event listener for editButton 
  editButton.addEventListener('click', (e) => {
-  const userInformation =  new UserInfo ('.profile__name', '.profile__profession');
 
-  const userData = userInformation.getUserInfo();
-    profileName.textContent = userData.name
-    profileProfession.textContent = userData.job
-   
+  newUserInfo.getUserInfo();
+    modalName.textContent = profileName.textContent,
+    modalProfession.textContent = profileProfession.textContent,
   editFormPopup.open();
 })   

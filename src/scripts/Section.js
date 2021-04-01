@@ -16,7 +16,7 @@ class Section {
   }
 }
 
-export default Section; 
+export default Section;  
 
 // Creating the Section Class
 // Create the Section class for rendering a list of elements on a page according to the following requirements:
