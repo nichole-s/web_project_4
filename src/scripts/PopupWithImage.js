@@ -4,8 +4,6 @@ class PopupWithImage extends Popup {
   constructor ({popupSelector}) {
     super(popupSelector);
   }
-
-  // Add functionality to open popup with data inserted
   
   open(name, link) {
     super.open(name, link);

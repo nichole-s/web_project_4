@@ -17,7 +17,7 @@ class Popup {
     document.removeEventListener('keydown', this._handleEscClose);
   }
 
-  // Functionality it make pressing the Escape key close popup
+  // Pressing the Escape key closes popup
   _handleEscClose(e) { 
     if(e.key === 'Escape'){
       this.close();

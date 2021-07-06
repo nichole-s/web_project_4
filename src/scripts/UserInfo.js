@@ -1,16 +1,18 @@
 class UserInfo {
-  constructor(userNameSelector, userJobSelector) {
+  constructor(userNameSelector, userJobSelector, avatar) {
     this._profileNameElement = document.querySelector(userNameSelector);
-    this._profileJobElement = document.querySelector(userJobSelector);    
+    this._profileJobElement = document.querySelector(userJobSelector);   
+    this._avatar = document.querySelector(avatar); 
   }
 
   getUserInfo() { 
-    return {name:this._profileNameElement.textContent, job:this._profileJobElement.textContent};
+    return this.userInfo = { name:this._profileNameElement.textContent, job:this._profileJobElement.textContent, avatar:this._avatar.src };
   }
 
-setUserInfo(userName, userJob) {
+setUserInfo({userName, userJob, userAvatar}) {
     this._profileNameElement.textContent = userName;
     this._profileJobElement.textContent = userJob;
+    this._avatar.src = userAvatar;
   }
 } 
 

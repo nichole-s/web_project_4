@@ -13,8 +13,8 @@
     <section class="profile">
       <img id="avatar-photo" src="./../src/images/avatar-photo.jpg" alt="avatar image" class="profile__avatar">
       <div class="profile__info">
-        <h1 class="profile__name">Jacques Cousteau</h1>
-        <p class="profile__profession">Explorer</p>
+        <h1 class="profile__name"></h1>
+        <p class="profile__profession"></p>
         <button class="profile__edit button" aria-label="edit profile button" type="button"></button>
       </div>
       <button class="profile__add button" aria-label="add photo button" type="button"></button>
@@ -64,6 +64,26 @@
       </div>
     </div>
   </div>
+  <div class="modal modal__form_type-delete-card">
+    <div class="modal__card">
+      <form class="modal__form modal__form_type-delete-card" action="submit">
+        <button class="modal__exit modal__exit_type_delete-card button" aria-label="close popup button" type="button"></button>
+        <h2 class="modal__heading">Are you sure?</h2>
+        <button class="modal__submit modal__submit_type-delete-card button" type="submit">Yes</button>
+      </form>
+    </div>
+  </div>
+  <div class="modal modal__form_type-edit-avatar">
+    <div class="modal__card">
+      <form class="modal__form modal__form_type-edit-avatar" action="submit">
+        <button class="modal__exit modal__exit_type-edit-avatar button" aria-label="close popup button" type="button"></button>
+        <h2 class="modal__heading">Change profile picture</h2>
+        <input id="modal__card-avatar-url" class="modal__card-url modal__input link" type="url" name="modal__cardurl" placeholder="Image Link" required>
+        <span id="modal__card-avatar-url-error" class="modal__error"></span>
+        <button class="modal__submit modal__submit_type-edit-avatar button" type="submit">Save</button>
+      </form>
+    </div>
+  </div>
   <template class="card-template" id="card-template">
     <li class="photo-grid__item">
       <div class= "photo-grid__photo">
@@ -72,6 +92,7 @@
       <div class="photo-grid__card">
         <h2 class="photo-grid__heading"></h2>
         <button class="photo-grid__like button" aria-label="like button" type="button"></button>
+        <p class="photo-grid__like-count"></p>
       </div>
     </li>
   </template>

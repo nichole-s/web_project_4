@@ -34,7 +34,6 @@ class PopupWithForm extends Popup {
 export default PopupWithForm; 
 
 // // Creating the PopupWithForm Class
-
 // // Create PopupWithForm as a child class of Popup. The PopupWithForm class must comply with the following requirements:
 // // It takes a callback of the form submission into the constructor, as well as the popup selector.
 // // It stores a private method named _getInputValues(), which collects data from all the input fields.

@@ -1,11 +1,28 @@
-
 export default class Card {
-  constructor({data, handleCardClick}, templateSelector) {
+  // constructor({data, handleCardClick}, templateSelector) {
+  //   this._link = data.link;
+  //   this._name = data.name;
+  //   this._templateSelector = templateSelector;
+  //   this._handleCardClick = handleCardClick;
+  //   this._cardTemplate = document.querySelector(templateSelector).content.querySelector('.photo-grid__item');
+  //   this._id = data.id;
+  // } 
+  constructor(data, handleCardClick, handleDeleteClick, handleLike, userID) {
     this._link = data.link;
     this._name = data.name;
-    this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
-    this._cardTemplate = document.querySelector(templateSelector).content.querySelector('.photo-grid__item');
+    this._handleDeleteClick = handleDeleteClick;
+    this._handleLike = handleLike;
+    this._userID = userID;
+    this._cardTemplate = document.querySelector
+    this._ownerID = data.owner._id;
+    this._likes = data.likes;
+    this._id = data.id;
+
+  }
+
+  id() {
+    return this._id;
   }
 
   _getCardTemplate() {
@@ -19,6 +36,48 @@ export default class Card {
   _handleDelete(e) { 
      e.target.closest('.photo-grid__item').remove();
      e.stopPropagation();
+  }
+
+  cardLiked() {
+    return this._likes.some(item => item._id === this._userID);
+  }
+
+  likeCount() {
+    this._card.querySelector("photo-grid__like-count").textcontent = this._likes.length;
+    if (this.cardLiked()) {
+      this._cardLikeButton.classList.add("photo-grid__liked");
+    } else {
+      this._cardLikeButton.classList.remove("photo-grid__liked");
+    }
+
+  }
+
+  updateLikes(likes) {
+    this._likes = likes;
+    this._likeCount();
+  }
+
+  _setEventListener() {
+    this._cardDeleteButton = this._cloneCard.querySelector('.element__trash');
+    this._cardLike.addEventListener("click", this._handleLikeIcon);
+    this._cardLike.addEventListener("click", () => this._handleLike(this, this.id()));
+
+    this._cardDeleteButton.addEventListener("click", (evt) => { this._handleDeleteClick(this.id(), evt.target.closest(".element"))});
+    this._cardImage.addEventListener("click", () => this._handleCardClick());
+  }
+
+  showLikes() {
+    if (this._likes.length > 0) {
+      this._card.querySelector(".photo-grid__like-count").classList.add("photo-grid__like-count_visible");
+    } else if (this._likes.length === 0) {
+      this._card.querySelector(".photo-grid__like-count").classList.remove("photo-grid__like-count_visible");
+    }
+  }
+
+  _showDeleteBtn() {
+    if (this._cardOwnerID == this._userID) {
+      this._cloneCard.querySelector(".photo-grid__trash").classList.add("photo-grid__trash_visible");
+    }
   }
 
 
@@ -57,3 +116,15 @@ export default class Card {
 // Connect the Card class to the popup. 
 // Make Card take the handleCardClick() function into the constructor. 
 // When the user clicks on the card, this function will open the popup with an image.
+
+//Project 9 requirements:
+//Pull cards from the server to display on the page
+//Check the id to see if the card was created by the current user or not
+//If the card was created by the current user, display the delete button and allow the user to delete the card from the page and the server.
+//If the user deletes the card, display the "Are you sure?" form and if the user clicks "Yes", then remove the card from the page and the server.
+//Change the button text to "Saving..." while the process is loading
+//Check to see how many users have liked the card and if the current user has liked the card.
+//Display the total number of likes.
+//If the current user has liked the card, display the filled in heart. If the current user has not liked the card, display the empty heart.
+//If the current user clicks the like button on a card, update the likes with the server and toggle the filled in/empty heart.
+//
