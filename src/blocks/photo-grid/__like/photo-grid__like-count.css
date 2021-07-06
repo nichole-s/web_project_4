@@ -1,0 +1,15 @@
+.photo-grid__like-count{
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  color: #000000;
+  margin: 0;
+}
+
+@media screen and (max-width: 584px){
+  .photo-grid__like-count{
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+//double check line height and font size in figma
