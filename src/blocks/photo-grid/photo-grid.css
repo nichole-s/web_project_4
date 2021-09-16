@@ -7,6 +7,6 @@
 @import url(./__trash/photo-grid__trash.css);
 @import url(./__liked/photo-grid__liked.css);
 @import url(./__like/photo-grid__like-count.css);
-@import url(./__like/photo-grid__show-like-count.css);
+@import url(./photo-grid__show-like-count/photo-grid__show-like-count.css);
 
 

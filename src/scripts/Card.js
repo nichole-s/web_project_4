@@ -1,25 +1,16 @@
 export default class Card {
-  // constructor({data, handleCardClick}, templateSelector) {
-  //   this._link = data.link;
-  //   this._name = data.name;
-  //   this._templateSelector = templateSelector;
-  //   this._handleCardClick = handleCardClick;
-  //   this._cardTemplate = document.querySelector(templateSelector).content.querySelector('.photo-grid__item');
-  //   this._id = data.id;
-  // } 
-  constructor(data, handleCardClick, handleDeleteClick, handleLike, userID) {
-    this._link = data.link;
-    this._name = data.name;
-    this._handleCardClick = handleCardClick;
-    this._handleDeleteClick = handleDeleteClick;
-    this._handleLike = handleLike;
-    this._userID = userID;
-    this._cardTemplate = document.querySelector
-    this._ownerID = data.owner._id;
-    this._likes = data.likes;
-    this._id = data.id;
-
-  }
+   constructor({data, handleCardClick, handleCardLike,}, templateSelector) {
+     this._link = data.link;
+     this._name = data.name;
+     this._templateSelector = templateSelector;
+     this._handleCardClick = handleCardClick;
+     this._handleCardLike = handleCardLike;
+     this._cardTemplate = document.querySelector(templateSelector).content.querySelector('.photo-grid__item');
+     this._id = data.id;
+     this._likes = data.likes;
+     this._ownerID = data.owner._id;
+     this._userID = data.userID;
+   } 
 
   id() {
     return this._id;

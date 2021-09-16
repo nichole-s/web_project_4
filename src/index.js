@@ -25,14 +25,14 @@ import Popup from './scripts/Popup.js';
 import PopupWithImage from './scripts/PopupWithImage.js';
 import PopupWithForm from './scripts/PopupWithForm.js';
 import UserInfo from './scripts/UserInfo.js';
-import headerLogoSrc from './../src/images/logo-vector.svg';
-import avatarPhotoSrc from './../src/images/avatar-photo.jpg';
+import headerLogoSrc from './images/logo-vector.svg';
+import avatarPhotoSrc from './images/avatar-photo.jpg';
 import Api from "./scripts/Api.js";
 
 // Make sure logo and avatar image show on page
 
 const logoImage = document.getElementById('header-logo');
-logoImage.src = headerLogoSrc; 
+logoImage.src = headerLogoSrc;  
 
 const avatarImage = document.getElementById('avatar-photo');
 avatarImage.src = avatarPhotoSrc;
@@ -47,8 +47,6 @@ const api = new Api({
   }
 });
 
-
-
 // Creating the instance of form validator for the edit profile and add photo card forms
 
 const addCardFormValidator = new FormValidator(defaultConfig, formAdd);
@@ -57,21 +55,10 @@ const editCardFormValidator = new FormValidator(defaultConfig, formEdit);
 addCardFormValidator.enableValidation();
 editCardFormValidator.enableValidation();
 
-
 // Create instance of the enlarged photo popup
 const imagePopup = new PopupWithImage({
   popupSelector: '.modal-type-image'});
 imagePopup.setEventListeners(); 
-
-// let cardList;
-
-// const createCard = (data) => {
-//   const card = new Card({data, handleCardClick: ((name, link) => {
-//     imagePopup.open(name, link);
-//   })}, '#card-template');
-//   const cardElement = card.generateCard();
-//   cardList.addItem(cardElement);
-// }
 
 // Get initial server data
 
@@ -79,10 +66,13 @@ api.getServerInfo()
  .then(([cardData, serverInfo]) => {
    const cardList = new Section({
      items: cardData,
-     renderer: 
-   })
+     renderer: (data) => {
+      const card = new Card({data, handleCardClick: ((name, link) => {
+      imagePopup.open(name, link);
+    })}, '#card-template');
+   }
  })
-
+})
 
 // Display initial cards
 
@@ -93,7 +83,9 @@ api.getCardsList()
       renderer: (data) => {
         const card = new Card({data, handleCardClick: ((name, link) => {
         imagePopup.open(name, link);
-      })}, '#card-template');
+      }), handleCardLike: () => {
+        likeCount();
+      }}, '#card-template');
       const cardElement = card.generateCard();
       cardList.addItem(cardElement);
         }
@@ -103,18 +95,16 @@ api.getCardsList()
     // Create form to add new cards  
 
     const addFormPopup = new PopupWithForm({
-      popupSelector: '.modal-type-add-card',
+      popupSelector: '.modal-type-add-card', 
       popupSubmit: (data) => {
         const {modal__cardname: name, modal__cardurl: link} = data;
-        api.addCard(data)
-        .then(res => {
+        api.addCard({name, link})
+        .then(data => {
           const card = new Card({data, handleCardClick: ((name, link) => {
             imagePopup.open(name, link);
           })}, '#card-template');
           const cardElement = card.generateCard();
           cardList.addItem(cardElement);
-          //const {modal__cardname: name, modal__cardurl: link} = data;
-          //card({name, link});
           addFormPopup.close();
 
         })
@@ -131,40 +121,13 @@ api.getCardsList()
 
   })
 
- 
-// api.getCardsList().then(cardData => {
-//   cardList = new Section({
-//     items: cardData,
-//     renderer: (data) => {
-//       createCard(data)
-//     }
-//   }, '.photo-grid__items');
-//   cardList.renderItems();
-// })
-
-// const addFormPopup = new PopupWithForm({
-//   popupSelector: '.modal-type-add-card',
-//   popupSubmit: (data) => {
-//     const {modal__cardname: name, modal__cardurl: link} = data;
-//     createCard({name, link});
-//     addFormPopup.close();
-//   }
-// })
-
-
-// addFormPopup.setEventListeners();
-
-// addButton.addEventListener('click', (e) => {
-//   addFormPopup.open();
-//  }); 
-
 //Create instance of UserInfo and place user data on the page
 
 const newUserInfo = new UserInfo('.profile__name', '.profile__profession');
 
 api.getUserInfo()
   .then(res => {
-    newUserInfo.setUserInfo({userName: res.name, userJob: res.about}); 
+    newUserInfo.setUserInfo({name: res.name, about: res.about});  
   })
 
 //Create form to change user info
@@ -172,79 +135,23 @@ api.getUserInfo()
 const editFormPopup = new PopupWithForm({
   popupSelector: '.modal-type-edit-profile',
   popupSubmit: (data) => {
-    const {modal__name:userName, modal__profession:userJob} = data;
-
-    newUserInfo.setUserInfo(userName, userJob);
+    const {modal__name:name, modal__profession:about} = data;
+    api.setUserInfo({ name, about })
+     .then(res => {
+      newUserInfo.setUserInfo({name: res.name, about:res.about})
+     });
     editFormPopup.close();
-}
+  }
 })  
 
 editFormPopup.setEventListeners();
 
  //event listener for editButton 
  editButton.addEventListener('click', (e) => {
-
-  newUserInfo.getUserInfo();
-    modalName.textContent = profileName.textContent,
-    modalProfession.textContent = profileProfession.textContent,
+   newUserInfo.getUserInfo();
+   modalName.textContent = profileName.textContent,
+   modalProfession.textContent = profileProfession.textContent,
   editFormPopup.open();
 })   
 
-
-
-
-
-// const createCard = (data) => {
-//   const card = new Card({data, handleCardClick: ((name, link) => {
-//     imagePopup.open(name, link);
-//   })}, '#card-template');
-//   const cardElement = card.generateCard();
-//   cardList.addItem(cardElement);
-// }
-
-// const cardList = new Section({
-//   items: initialCards,
-//   renderer: (data) => {
-//     createCard(data)
-//   }
-// }, '.photo-grid__items');
-
-// cardList.renderItems();
-
-// const addFormPopup = new PopupWithForm({
-//   popupSelector: '.modal-type-add-card',
-//   popupSubmit: (data) => {
-//     const {modal__cardname: name, modal__cardurl: link} = data;
-//     createCard({name, link});
-//     addFormPopup.close();
-//   }
-// })
-
-// addFormPopup.setEventListeners();
-
-// addButton.addEventListener('click', (e) => {
-//   addFormPopup.open();
-//  }); 
-
-// const newUserInfo = new UserInfo('.profile__name', '.profile__profession');
-
-// const editFormPopup = new PopupWithForm({
-//   popupSelector: '.modal-type-edit-profile',
-//   popupSubmit: (data) => {
-//     const {modal__name:userName, modal__profession:userJob} = data;
-
-//     newUserInfo.setUserInfo(userName, userJob);
-//     editFormPopup.close();
-// }
-// })  
-
-// editFormPopup.setEventListeners();
-
-//  //event listener for editButton 
-//  editButton.addEventListener('click', (e) => {
-
-//   newUserInfo.getUserInfo();
-//     modalName.textContent = profileName.textContent,
-//     modalProfession.textContent = profileProfession.textContent,
-//   editFormPopup.open();
-// })   
+ 

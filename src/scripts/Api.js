@@ -1,3 +1,5 @@
+//import { ContextExclusionPlugin } from "webpack";
+
 export default class Api {
   constructor({baseUrl, headers}) {
     this._baseUrl = baseUrl;
@@ -35,7 +37,7 @@ export default class Api {
         link
       })
     })
-    .then(this._serverResponseCheck)
+    .then((r) => this._serverResponseCheck(r))
   }
 
   removeCard(cardID) {
@@ -49,7 +51,7 @@ export default class Api {
   addLike(cardID) {
     return fetch(`${this._baseUrl}/cards/likes/${cardID}`, {
       headers: this._headers,
-      method: "PUT",
+      method: "POST",
     })
     .then(this._responseCheck)
   }
@@ -62,16 +64,16 @@ export default class Api {
     .then(this._responseCheck)
   }
   
-  setUserInfo({ name, about}) {
+  setUserInfo({ name, about }) {
     return fetch(`${this._baseUrl}/users/me`, {
-      method: "PATCH",
       headers: this._headers,
+      method: "PATCH",
       body: JSON.stringify({
         name,
         about
       })
     })  
-    .then(this._serverResponseCheck)
+    .then((r) => this._serverResponseCheck(r))
   }
 
   setUserAvatar(avatar) {
@@ -79,7 +81,7 @@ export default class Api {
       method: "PATCH",
       headers: this._headers,
       body: json.stringify({
-        avatar,
+        avatar
       })
     })  
     .then(this._serverResponseCheck)
