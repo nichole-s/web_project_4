@@ -1,5 +1,3 @@
-//import { ContextExclusionPlugin } from "webpack";
-
 export default class Api {
   constructor({baseUrl, headers}) {
     this._baseUrl = baseUrl;
@@ -78,16 +76,12 @@ export default class Api {
 
   setUserAvatar(avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar/`, {
-      method: "PATCH",
       headers: this._headers,
-      body: json.stringify({
+      method: "PATCH",
+      body: JSON.stringify({
         avatar
       })
     })  
-    .then(this._serverResponseCheck)
+    .then((r) => this._serverResponseCheck(r))
 }
 }
-
-// Url: https://around.nomoreparties.co
-// Token: c414c53f-8fa5-4257-bec2-8a32bc52d96c
-// Group ID: group-9 class 

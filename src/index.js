@@ -5,16 +5,20 @@ import {
   defaultConfig, 
   modalEdit, 
   modalAdd, 
-  modalImage, 
+  modalImage,
+  modalAvatar, 
   modals, 
   modalForm,
   initialCards, 
   addButton, 
-  editButton, 
+  editButton,
+  avatarEditButton, 
   profileName, 
-  profileProfession,  
+  profileProfession,
+  profileAvatar,  
   formAdd, 
   formEdit,
+  formAvatar,
   cardSection,
   modalName,
   modalProfession
@@ -30,7 +34,6 @@ import avatarPhotoSrc from './images/avatar-photo.jpg';
 import Api from "./scripts/Api.js";
 
 // Make sure logo and avatar image show on page
-
 const logoImage = document.getElementById('header-logo');
 logoImage.src = headerLogoSrc;  
 
@@ -38,7 +41,6 @@ const avatarImage = document.getElementById('avatar-photo');
 avatarImage.src = avatarPhotoSrc;
 
 //Create instance of Api with my user information
-
 const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/group-9",
   headers: {
@@ -47,21 +49,24 @@ const api = new Api({
   }
 });
 
-// Creating the instance of form validator for the edit profile and add photo card forms
-
+// Create the instance of form validator for the edit profile and add photo card forms
 const addCardFormValidator = new FormValidator(defaultConfig, formAdd);
 const editCardFormValidator = new FormValidator(defaultConfig, formEdit);
+const avatarEditFormValidator = new FormValidator(defaultConfig, formAvatar);
 
 addCardFormValidator.enableValidation();
 editCardFormValidator.enableValidation();
+avatarEditFormValidator.enableValidation();
 
 // Create instance of the enlarged photo popup
 const imagePopup = new PopupWithImage({
   popupSelector: '.modal-type-image'});
 imagePopup.setEventListeners(); 
 
-// Get initial server data
+//Create instance of user
+const newUserInfo = new UserInfo({ userNameSelector: '.profile__name', userJobSelector: '.profile__profession', avatar: '.profile__avatar'});
 
+// Get initial server data
 api.getServerInfo()
  .then(([cardData, serverInfo]) => {
    const cardList = new Section({
@@ -72,6 +77,7 @@ api.getServerInfo()
     })}, '#card-template');
    }
  })
+   newUserInfo.setUserInfo({ name: serverInfo.name, about: serverInfo.about, id: UserInfo._id, avatar: UserInfo.avatar});
 })
 
 // Display initial cards
@@ -83,16 +89,15 @@ api.getCardsList()
       renderer: (data) => {
         const card = new Card({data, handleCardClick: ((name, link) => {
         imagePopup.open(name, link);
-      }), handleCardLike: () => {
-        likeCount();
-      }}, '#card-template');
+      })}, '#card-template');
       const cardElement = card.generateCard();
       cardList.addItem(cardElement);
         }
       }, '.photo-grid__items');
+
       cardList.renderItems();
 
-    // Create form to add new cards  
+// Create form to add new cards  
 
     const addFormPopup = new PopupWithForm({
       popupSelector: '.modal-type-add-card', 
@@ -121,15 +126,6 @@ api.getCardsList()
 
   })
 
-//Create instance of UserInfo and place user data on the page
-
-const newUserInfo = new UserInfo('.profile__name', '.profile__profession');
-
-api.getUserInfo()
-  .then(res => {
-    newUserInfo.setUserInfo({name: res.name, about: res.about});  
-  })
-
 //Create form to change user info
 
 const editFormPopup = new PopupWithForm({
@@ -154,4 +150,25 @@ editFormPopup.setEventListeners();
   editFormPopup.open();
 })   
 
- 
+//create form to comnfirm delete
+
+//create form to update profile picture
+
+const editAvatarFormPopup = new PopupWithForm({
+  popupSelector: '.modal__type-edit-avatar',
+  popupSubmit: (data) => {
+    const avatarLink = data.modal__cardurl;
+    api.setUserAvatar(avatarLink)
+     .then(data => {
+      profileAvatar.src = avatarLink;
+      editAvatarFormPopup.close();
+     });
+  }
+})  
+
+editAvatarFormPopup.setEventListeners();
+
+//event listener for Button 
+avatarEditButton.addEventListener('click', (e) => {
+editAvatarFormPopup.open();
+})   

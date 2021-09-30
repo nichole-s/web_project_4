@@ -1,16 +1,23 @@
 export default class Card {
-   constructor({data, handleCardClick, handleCardLike,}, templateSelector) {
+   constructor({data, handleCardClick}, templateSelector) {
+     this._cardData = data;
+     this._cardID = data._id;
      this._link = data.link;
      this._name = data.name;
      this._templateSelector = templateSelector;
      this._handleCardClick = handleCardClick;
-     this._handleCardLike = handleCardLike;
+     //this._handleCardLike = handleCardLike;
+     //this._handleCardDelete = handleCardDelete;
+     //this._handleCardData = handleCardData;
      this._cardTemplate = document.querySelector(templateSelector).content.querySelector('.photo-grid__item');
-     this._id = data.id;
+     this._deleteButton = this._cardTemplate.querySelector('.photo-grid__trash');
+     this._id = data._id;
      this._likes = data.likes;
-     this._ownerID = data.owner._id;
+     this._ownerId = data.owner._id;
+     this._owner = data.owner;
      this._userID = data.userID;
-   } 
+     this._currentUserId = data.currentUserId;
+   }   
 
   id() {
     return this._id;
@@ -34,7 +41,7 @@ export default class Card {
   }
 
   likeCount() {
-    this._card.querySelector("photo-grid__like-count").textcontent = this._likes.length;
+    this._card.querySelector(".photo-grid__like-count").textContent = this._likes.length;
     if (this.cardLiked()) {
       this._cardLikeButton.classList.add("photo-grid__liked");
     } else {
@@ -66,9 +73,10 @@ export default class Card {
   }
 
   _showDeleteBtn() {
-    if (this._cardOwnerID == this._userID) {
-      this._cloneCard.querySelector(".photo-grid__trash").classList.add("photo-grid__trash_visible");
+    if (this._ownerId == this._userId) {
+      this._card.querySelector(".photo-grid__trash").classList.add("photo-grid__trash_visible");
     }
+  
   }
 
 
@@ -89,10 +97,31 @@ export default class Card {
     this._card.querySelector('.photo-grid__heading').textContent = this._name;
     this._cardLikeButton = this._card.querySelector('.photo-grid__like'); 
     this._cardRemoveButton = this._card.querySelector('.photo-grid__trash'); 
+    this._cardRemoveButton.classList.add('photo-grid__trash_visible');
+    this._showDeleteBtn();
+    this._likes = this.likeCount();
     this._setEventListeners();
     return this._card; 
   }
 }; 
+
+//   getCard() {
+
+//     this._card = this._getTemplate();
+//     this._cardImage = this._card.querySelector(".card__image");
+//     this._setEventListeners();
+//     this._showLikeStatus();
+//     const cardTitle = this._card.querySelector(".card__title");
+//     cardTitle.textContent = this._text;
+//     this._cardImage.src = this._link;
+//     this._cardImage.alt = "Picture of " + this._text;
+//     this._cardImage.addEventListener("click", this._handleCardClick)
+
+
+
+//     return this._card;
+//   }
+// }
 
 //Project 7 requirements:
 // Create the Card class, which creates a card with text and an image link, as per the following requirements:
@@ -119,3 +148,55 @@ export default class Card {
 //If the current user has liked the card, display the filled in heart. If the current user has not liked the card, display the empty heart.
 //If the current user clicks the like button on a card, update the likes with the server and toggle the filled in/empty heart.
 //
+
+
+//   _checkLikeStatus() {
+//     const isLiked = this.likes.some((like) => like._id === this._currentUserId);
+//     return isLiked;
+//   }
+
+
+//   _showLikeStatus() {
+//     this._countLikes();
+//     if (this._checkLikeStatus()) {
+//       this._card.querySelector(".card__like-button").classList.add("card__like-button_active")
+//     }
+//   }
+
+
+//   _countLikes() {
+//     this._card.querySelector(".card__like-count").textContent = this.likes.length;
+//   }
+
+//   _updateLikes(card) {
+//     this._card.querySelector(".card__like-count").textContent = card.likes.length;
+//   }
+
+
+//   _setEventListeners() {
+//     const likeButton = this._card.querySelector(".card__like-button");
+//     const deleteButton = this._card.querySelector(".card__delete-button");
+
+//     //Like Card
+
+//     likeButton.addEventListener("click", (evt) => {
+//       this._handleLikeClick(evt.target.classList.contains("card__like-button_active"))
+//         .then((card) => {
+//           evt.target.classList.toggle("card__like-button_active")
+//           this._updateLikes(card);
+//         })
+//         .catch((err)=>console.log(`Something went wrong: ${err}`))
+//     });
+
+//     //Hide button if card does not belong to current user
+//     if (this._currentUserId === this._ownerId) {
+//       this.deleteButton.style.visibility = "visible";
+//     } else {
+//       this.deleteButton.style.visibility = "hidden";
+//     }
+
+
+//     deleteButton.addEventListener("click", (evt) => {
+//         this._handleDeleteClick(evt)
+//     })
+//   }

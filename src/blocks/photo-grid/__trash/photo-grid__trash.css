@@ -9,6 +9,11 @@
   width: 18px;
 }
 
+.photo-grid__trash:hover {
+  opacity: 0.5;
+
+}
+
 .photo-grid__trash_visible{
   display: block
 }

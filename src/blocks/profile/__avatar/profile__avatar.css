@@ -1,6 +1,7 @@
-.profile__avatar{
-  width: 120px;
-  height: 120px;
-  border-radius: 60px;
-  margin-right: 30px;
+@import url(./__avatar-edit/profile__avatar-edit.css);
+@import url(./__avatar-photo/profile__avatar-photo.css);
+
+.profile__avatar {
+  position: relative;
+ 
 }
