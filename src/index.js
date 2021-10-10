@@ -49,6 +49,9 @@ const api = new Api({
   }
 });
 
+// Get current user ID 
+const currentUser = api.getUserInfo();
+
 // Create the instance of form validator for the edit profile and add photo card forms
 const addCardFormValidator = new FormValidator(defaultConfig, formAdd);
 const editCardFormValidator = new FormValidator(defaultConfig, formEdit);
@@ -64,7 +67,7 @@ const imagePopup = new PopupWithImage({
 imagePopup.setEventListeners(); 
 
 //Create instance of user
-const newUserInfo = new UserInfo({ userNameSelector: '.profile__name', userJobSelector: '.profile__profession', avatar: '.profile__avatar'});
+//const newUserInfo = new UserInfo({ userNameSelector: '.profile__name', userJobSelector: '.profile__profession', avatar: '.profile__avatar'});
 
 // Get initial server data
 api.getServerInfo()
@@ -77,19 +80,26 @@ api.getServerInfo()
     })}, '#card-template');
    }
  })
-   newUserInfo.setUserInfo({ name: serverInfo.name, about: serverInfo.about, id: UserInfo._id, avatar: UserInfo.avatar});
+  const newUserInfo = new UserInfo({
+    userNameSelector: '.profile__name',
+    userJobSelector: '.profile__profession',
+    avatar: '.profile__avatar',
+  })
+   newUserInfo.setUserInfo({ name: serverInfo.name, about: serverInfo.about, id: serverInfo._id, avatar: serverInfo.avatar});
 })
 
 // Display initial cards
-
 api.getCardsList()
   .then(cardData => {
+    //const currentUser = api.getUserInfo();
     const cardList = new Section({
       items: cardData,
       renderer: (data) => {
+        //const currentUser = api.getUserInfo();
         const card = new Card({data, handleCardClick: ((name, link) => {
         imagePopup.open(name, link);
-      })}, '#card-template');
+      }), handleDeleteClick: (cardId) => {api.removeCard(cardId);
+      }}, '#card-template');
       const cardElement = card.generateCard();
       cardList.addItem(cardElement);
         }
@@ -97,34 +107,30 @@ api.getCardsList()
 
       cardList.renderItems();
 
-// Create form to add new cards  
-
-    const addFormPopup = new PopupWithForm({
-      popupSelector: '.modal-type-add-card', 
-      popupSubmit: (data) => {
-        const {modal__cardname: name, modal__cardurl: link} = data;
-        api.addCard({name, link})
-        .then(data => {
-          const card = new Card({data, handleCardClick: ((name, link) => {
-            imagePopup.open(name, link);
-          })}, '#card-template');
-          const cardElement = card.generateCard();
-          cardList.addItem(cardElement);
-          addFormPopup.close();
-
-        })
-        
-      }
-    })
-    
-    
-    addFormPopup.setEventListeners();
-    
-    addButton.addEventListener('click', (e) => {
-      addFormPopup.open();
-     }); 
-
+  // Create form to add new cards  
+  const addFormPopup = new PopupWithForm({
+    popupSelector: '.modal-type-add-card', 
+    popupSubmit: (data) => {
+      const {modal__cardname: name, modal__cardurl: link} = data;
+      api.addCard({name, link})
+      .then(data => {
+        const card = new Card({data, handleCardClick: ((name, link) => {
+          imagePopup.open(name, link);
+        })}, '#card-template');
+        const cardElement = card.generateCard();
+        cardList.addItem(cardElement);
+        addFormPopup.close();
+      })       
+    }
   })
+    
+  addFormPopup.setEventListeners();
+    
+  addButton.addEventListener('click', (e) => {
+    addFormPopup.open();
+  }); 
+
+})
 
 //Create form to change user info
 
@@ -142,15 +148,15 @@ const editFormPopup = new PopupWithForm({
 
 editFormPopup.setEventListeners();
 
- //event listener for editButton 
- editButton.addEventListener('click', (e) => {
-   newUserInfo.getUserInfo();
-   modalName.textContent = profileName.textContent,
-   modalProfession.textContent = profileProfession.textContent,
+//event listener for editButton 
+editButton.addEventListener('click', (e) => {
+  newUserInfo.getUserInfo();
+  modalName.textContent = profileName.textContent,
+  modalProfession.textContent = profileProfession.textContent,
   editFormPopup.open();
 })   
 
-//create form to comnfirm delete
+//create form to confirm delete
 
 //create form to update profile picture
 
