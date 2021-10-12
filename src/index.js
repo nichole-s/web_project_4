@@ -96,8 +96,9 @@ api.getCardsList()
         const card = new Card({data, handleCardClick: ((name, link) => {
         imagePopup.open(name, link);
       }), handleDeleteClick: (cardID) => {
+        event.stopPropagation();
         api.removeCard(cardID);
-        card.handleDelete;
+        card.handleDelete();
       }}, '#card-template');
       const cardElement = card.generateCard();
       cardList.addItem(cardElement);
@@ -115,7 +116,11 @@ api.getCardsList()
       .then(data => {
         const card = new Card({data, handleCardClick: ((name, link) => {
           imagePopup.open(name, link);
-        })}, '#card-template');
+        }), handleDeleteClick: (cardID) => {
+          event.stopPropagation();
+          api.removeCard(cardID);
+          card.handleDelete();
+        }}, '#card-template');
         const cardElement = card.generateCard();
         cardList.addItem(cardElement);
         addFormPopup.close();
