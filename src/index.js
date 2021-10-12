@@ -1,6 +1,5 @@
 import "./index.css";
 import FormValidator from './scripts/FormValidator.js';
-//import { toggleModal } from './utils.js'
 import { 
   defaultConfig, 
   modalEdit, 
@@ -50,7 +49,7 @@ const api = new Api({
 });
 
 // Get current user ID 
-const currentUser = api.getUserInfo();
+//const currentUser = api.getUserInfo();
 
 // Create the instance of form validator for the edit profile and add photo card forms
 const addCardFormValidator = new FormValidator(defaultConfig, formAdd);
@@ -91,14 +90,14 @@ api.getServerInfo()
 // Display initial cards
 api.getCardsList()
   .then(cardData => {
-    //const currentUser = api.getUserInfo();
     const cardList = new Section({
       items: cardData,
       renderer: (data) => {
-        //const currentUser = api.getUserInfo();
         const card = new Card({data, handleCardClick: ((name, link) => {
         imagePopup.open(name, link);
-      }), handleDeleteClick: (cardId) => {api.removeCard(cardId);
+      }), handleDeleteClick: (cardID) => {
+        api.removeCard(cardID);
+        card.handleDelete;
       }}, '#card-template');
       const cardElement = card.generateCard();
       cardList.addItem(cardElement);

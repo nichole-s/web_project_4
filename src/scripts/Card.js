@@ -6,15 +6,13 @@ export default class Card {
      this._name = data.name;
      this._templateSelector = templateSelector;
      this._handleCardClick = handleCardClick;
+     this._handleDeleteClick = handleDeleteClick;
      //this._handleCardLike = handleCardLike;
-     //this._handleCardDelete = handleCardDelete;
-     //this._handleCardData = handleCardData;
      this._cardTemplate = document.querySelector(templateSelector).content.querySelector('.photo-grid__item');
      this._deleteButton = this._cardTemplate.querySelector('.photo-grid__trash');
      this._id = data._id;
      this._likes = data.likes;
      this._ownerId = data.owner._id;
-     this._owner = data.owner;
      this._userID = data.userID;
    }   
 
@@ -27,12 +25,15 @@ export default class Card {
   }
 
   _handleLike() {
-    this.classList.toggle('photo-grid__liked');  
+    //this.classList.toggle('photo-grid__liked');  
+    this._card.querySelector('photo-grid__like-button').classlist.toggle('photo-grid__liked');
   }
 
-  _handleDelete(e) { 
-     e.target.closest('.photo-grid__item').remove();
-     e.stopPropagation();
+  handleDelete() { 
+    //  e.target.closest('.photo-grid__item').remove();
+    //  e.stopPropagation();
+    this._card.remove();
+    this._card = null;
   }
 
   cardLiked() {
