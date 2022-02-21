@@ -1,7 +1,7 @@
 export default class Card {
    constructor({data, handleCardClick, handleDeleteClick}, templateSelector) {
+
      this._cardData = data;
-     this._cardID = data._id;
      this._link = data.link;
      this._name = data.name;
      this._templateSelector = templateSelector;
@@ -10,13 +10,13 @@ export default class Card {
      //this._handleCardLike = handleCardLike;
      this._cardTemplate = document.querySelector(templateSelector).content.querySelector('.photo-grid__item');
      this._deleteButton = this._cardTemplate.querySelector('.photo-grid__trash');
-     this._id = data._id;
+     this._id = data._id; //card id
      this._likes = data.likes;
-     this._ownerId = data.owner._id;
+     //this._ownerId = data.owner._id;  
      this._userID = data.userID;
    }   
 
-  id() {
+  getId() {
     return this._id;
   }
 
@@ -24,7 +24,7 @@ export default class Card {
     return this._cardTemplate.cloneNode(true);
   }
 
-  _handleLike() {
+  handleLike() {
     //this.classList.toggle('photo-grid__liked');  
     this._card.querySelector('photo-grid__like-button').classlist.toggle('photo-grid__liked');
   }
@@ -40,14 +40,14 @@ export default class Card {
     return this._likes.some(item => item._id === this._userID);
   }
 
-  likeCount() {
-    this._card.querySelector(".photo-grid__like-count").textContent = this._likes.length;
-    if (this.cardLiked()) {
-      this._cardLikeButton.classList.add("photo-grid__liked");
-    } else {
-      this._cardLikeButton.classList.remove("photo-grid__liked");
-    }
-  }
+  // likeCount() {
+  //   this._card.querySelector(".photo-grid__like-count").textContent = this._likes.length;
+  //   if (this.cardLiked()) {
+  //     this._cardLikeButton.classList.add("photo-grid__liked");
+  //   } else {
+  //     this._cardLikeButton.classList.remove("photo-grid__liked");
+  //   }
+  // }
 
   updateLikes(likes) {
     this._likes = likes;
@@ -63,6 +63,7 @@ export default class Card {
   }
 
   _showDeleteBtn() {
+    //if (this._ownerId === currentUserId) {
     if (this._ownerId === "8b0d4eceaff5031d8edffe2c") {
       this._card.querySelector(".photo-grid__trash").classList.add("photo-grid__trash_visible");
     } else {
@@ -72,9 +73,9 @@ export default class Card {
 
   _setEventListeners() {
 
-    this._cardLikeButton.addEventListener("click", this._handleLike);
+    this._cardLikeButton.addEventListener("click", this._handleCardLike);
 
-    this._cardRemoveButton.addEventListener("click", () => this._handleDeleteClick(this.id()));
+    this._cardRemoveButton.addEventListener("click", () => this._handleDeleteClick());
 
     this._cardImage.addEventListener("click", () => this._handleCardClick(this._name, this._link));
 
@@ -89,7 +90,7 @@ export default class Card {
     this._cardRemoveButton = this._card.querySelector('.photo-grid__trash'); 
     this._cardRemoveButton.classList.add('photo-grid__trash_visible');
     this._showDeleteBtn();
-    this._likes = this.likeCount();
+    //this._likes = this.likeCount();
     this._setEventListeners();
     return this._card; 
   }

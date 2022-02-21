@@ -27,10 +27,12 @@ import Section from './scripts/Section.js';
 import Popup from './scripts/Popup.js';
 import PopupWithImage from './scripts/PopupWithImage.js';
 import PopupWithForm from './scripts/PopupWithForm.js';
+import PopupWithoutForm from './scripts/PopupWithoutForm.js';
 import UserInfo from './scripts/UserInfo.js';
 import headerLogoSrc from './images/logo-vector.svg';
 import avatarPhotoSrc from './images/avatar-photo.jpg';
 import Api from "./scripts/Api.js";
+
 
 // Make sure logo and avatar image show on page
 const logoImage = document.getElementById('header-logo');
@@ -48,8 +50,6 @@ const api = new Api({
   }
 });
 
-// Get current user ID 
-//const currentUser = api.getUserInfo();
 
 // Create the instance of form validator for the edit profile and add photo card forms
 const addCardFormValidator = new FormValidator(defaultConfig, formAdd);
@@ -65,76 +65,121 @@ const imagePopup = new PopupWithImage({
   popupSelector: '.modal-type-image'});
 imagePopup.setEventListeners(); 
 
-//Create instance of user
-//const newUserInfo = new UserInfo({ userNameSelector: '.profile__name', userJobSelector: '.profile__profession', avatar: '.profile__avatar'});
+//create form to confirm delete
+const deleteCardPopup = new PopupWithoutForm({
+  popupSelector: '.modal-type-delete-card',
+  popupClick: () => {
+    api.removeCard(Card.getId())
+    .then((res) => {
+      Card.handleDelete(res);
+      deleteCardPopup.close();
+    })
+  }
+})
+deleteCardPopup.setEventListeners();
 
-// Get initial server data
+let userId = null;
+let cardList = null;
+let userInfo = null;
+let newUserInfo = null;
+ 
+
+// Get initial server data, set user information, and load initial cards
 api.getServerInfo()
- .then(([cardData, serverInfo]) => {
-   const cardList = new Section({
-     items: cardData,
-     renderer: (data) => {
-      const card = new Card({data, handleCardClick: ((name, link) => {
-      imagePopup.open(name, link);
-    })}, '#card-template');
-   }
- })
+.then(([cardData, userInfo]) => { 
+
+  userId = userInfo._id;
+
   const newUserInfo = new UserInfo({
     userNameSelector: '.profile__name',
     userJobSelector: '.profile__profession',
     avatar: '.profile__avatar',
   })
-   newUserInfo.setUserInfo({ name: serverInfo.name, about: serverInfo.about, id: serverInfo._id, avatar: serverInfo.avatar});
-})
+  newUserInfo.setUserInfo({ name: userInfo.name, about: userInfo.about, id: userInfo._id, avatar: userInfo.avatar});  
 
-// Display initial cards
-api.getCardsList()
-  .then(cardData => {
-    const cardList = new Section({
-      items: cardData,
-      renderer: (data) => {
-        const card = new Card({data, handleCardClick: ((name, link) => {
+  cardList = new Section({
+    items: [cardData],
+    renderer: (data) => {
+      const card = new Card({data, handleCardClick: ((name, link) => {  
+      imagePopup.open(name, link);
+    }), handleDeleteClick: () => {
+      event.stopPropagation();
+      deleteCardPopup.open(data);
+    }//, 
+    //handleCardLike: () => {
+    //  card.handleLike(); 
+    //}
+  }, '#card-template');
+    const cardElement = card.generateCard();
+    cardList.addItem(cardElement);
+      }
+    }, '.photo-grid__items');
+    
+    cardList.renderItems();
+  })
+.catch((err) => console.log(`An error occurred when loading data: ${err}`));    
+
+//  // Create form to add new cards  
+//   const addFormPopup = new PopupWithForm({
+//     popupSelector: '.modal-type-add-card', 
+//     popupSubmit: (data) => {
+//       const {modal__cardname: name, modal__cardurl: link} = data;
+//       api.addCard({name, link})
+//       .then(data => {
+//         const card = new Card({data, handleCardClick: ((name, link) => {  
+//           imagePopup.open(name, link);
+//         }), handleDeleteClick: () => {
+//           event.stopPropagation();
+//           deleteCardPopup.open();
+//         }}, '#card-template');
+//         const cardElement = card.generateCard(userInfo._id);
+//         cardList.addItem(cardElement);
+//         addFormPopup.close();
+//       })       
+//     }
+//   })
+    
+//   addFormPopup.setEventListeners();
+    
+//   addButton.addEventListener('click', (e) => {
+//     addFormPopup.open();
+//   });     
+
+  // newUserInfo = new UserInfo({
+  //   userNameSelector: '.profile__name',
+  //   userJobSelector: '.profile__profession',
+  //   avatar: '.profile__avatar',
+  // })
+  // newUserInfo.setUserInfo({ name: userInfo.name, about: userInfo.about, id: userInfo._id, avatar: userInfo.avatar});   
+
+// })
+
+// Create form to add new cards  
+const addFormPopup = new PopupWithForm({
+  popupSelector: '.modal-type-add-card', 
+  popupSubmit: (data) => {
+    const {modal__cardname: name, modal__cardurl: link} = data;
+    api.addCard({name, link})
+    .then(data => {
+      const card = new Card({data, handleCardClick: ((name, link) => {  
         imagePopup.open(name, link);
-      }), handleDeleteClick: (cardID) => {
+      }), handleDeleteClick: () => {
         event.stopPropagation();
-        api.removeCard(cardID);
-        card.handleDelete();
+        deleteCardPopup.open();
       }}, '#card-template');
       const cardElement = card.generateCard();
       cardList.addItem(cardElement);
-        }
-      }, '.photo-grid__items');
-
-      cardList.renderItems();
-
-  // Create form to add new cards  
-  const addFormPopup = new PopupWithForm({
-    popupSelector: '.modal-type-add-card', 
-    popupSubmit: (data) => {
-      const {modal__cardname: name, modal__cardurl: link} = data;
-      api.addCard({name, link})
-      .then(data => {
-        const card = new Card({data, handleCardClick: ((name, link) => {
-          imagePopup.open(name, link);
-        }), handleDeleteClick: (cardID) => {
-          event.stopPropagation();
-          api.removeCard(cardID);
-          card.handleDelete();
-        }}, '#card-template');
-        const cardElement = card.generateCard();
-        cardList.addItem(cardElement);
-        addFormPopup.close();
-      })       
-    }
-  })
-    
-  addFormPopup.setEventListeners();
-    
-  addButton.addEventListener('click', (e) => {
-    addFormPopup.open();
-  }); 
-
+      addFormPopup.close();
+    }) 
+    .catch((err) => console.log(`An error occurred when loading data: ${err}`));      
+  }
 })
+  
+addFormPopup.setEventListeners();
+  
+addButton.addEventListener('click', (e) => {
+  addFormPopup.open();
+});
 
 //Create form to change user info
 
@@ -145,9 +190,11 @@ const editFormPopup = new PopupWithForm({
     api.setUserInfo({ name, about })
      .then(res => {
       newUserInfo.setUserInfo({name: res.name, about:res.about})
-     });
+     })
+     .catch((err) => console.log(`An error occurred when loading data: ${err}`));
     editFormPopup.close();
   }
+
 })  
 
 editFormPopup.setEventListeners();
@@ -159,8 +206,6 @@ editButton.addEventListener('click', (e) => {
   modalProfession.textContent = profileProfession.textContent,
   editFormPopup.open();
 })   
-
-//create form to confirm delete
 
 //create form to update profile picture
 
