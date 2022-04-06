@@ -21,7 +21,7 @@ class UserInfo {
 
   setUserInfo({name, about, id, avatar}) {
     this.setUserProfile({name, about});
-    this.setUserAvatar({avatar});
+    this.setUserAvatar(avatar);
     this._id = id;
   }
 

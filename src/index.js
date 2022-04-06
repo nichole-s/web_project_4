@@ -78,26 +78,15 @@ const deleteCardPopup = new PopupWithoutForm({
 })
 deleteCardPopup.setEventListeners();
 
-let userId = null;
-let cardList = null;
-let userInfo = null;
-let newUserInfo = null;
- 
+let userId
+let cardList
 
 // Get initial server data, set user information, and load initial cards
 api.getServerInfo()
 .then(([cardData, userInfo]) => { 
-
-  userId = userInfo._id;
-
-  const newUserInfo = new UserInfo({
-    userNameSelector: '.profile__name',
-    userJobSelector: '.profile__profession',
-    avatar: '.profile__avatar',
-  })
-  newUserInfo.setUserInfo({ name: userInfo.name, about: userInfo.about, id: userInfo._id, avatar: userInfo.avatar});  
-
-  cardList = new Section({
+  const userId = userInfo._id;
+  
+  const cardList = new Section({
     items: [cardData],
     renderer: (data) => {
       const card = new Card({data, handleCardClick: ((name, link) => {  
@@ -110,14 +99,31 @@ api.getServerInfo()
     //  card.handleLike(); 
     //}
   }, '#card-template');
+
     const cardElement = card.generateCard();
     cardList.addItem(cardElement);
       }
     }, '.photo-grid__items');
     
     cardList.renderItems();
+
+  const newUserInfo = new UserInfo({
+    userNameSelector: '.profile__name',
+    userJobSelector: '.profile__profession',
+    avatar: '.profile__avatar',
   })
-.catch((err) => console.log(`An error occurred when loading data: ${err}`));    
+
+  newUserInfo.setUserInfo({ name: userInfo.name, about: userInfo.about, id: userInfo._id, avatar: userInfo.avatar});    
+
+  console.log(userId);
+  console.log(cardList);
+  
+
+  })
+.catch((err) => console.log(`An error occurred when loading data: ${err}`));  
+
+
+
 
 //  // Create form to add new cards  
 //   const addFormPopup = new PopupWithForm({
@@ -212,7 +218,7 @@ editButton.addEventListener('click', (e) => {
 const editAvatarFormPopup = new PopupWithForm({
   popupSelector: '.modal__type-edit-avatar',
   popupSubmit: (data) => {
-    const avatarLink = data.modal__cardurl;
+    const avatarLink = data.modal__avatarurl;
     api.setUserAvatar(avatarLink)
      .then(data => {
       profileAvatar.src = avatarLink;
