@@ -65,39 +65,35 @@ const imagePopup = new PopupWithImage({
   popupSelector: '.modal-type-image'});
 imagePopup.setEventListeners(); 
 
-//create form to confirm delete
-const deleteCardPopup = new PopupWithoutForm({
-  popupSelector: '.modal-type-delete-card',
-  popupClick: () => {
-    api.removeCard(Card.getId())
-    .then((res) => {
-      Card.handleDelete(res);
-      deleteCardPopup.close();
-    })
-  }
-})
-deleteCardPopup.setEventListeners();
+let userID;
+let cardList;
 
-let userId
-let cardList
+//Create instance of UserInfo
+
+const newUserInfo = new UserInfo({
+  userNameSelector: '.profile__name',
+  userJobSelector: '.profile__profession',
+  avatar: '.profile__avatar',
+})
+
 
 // Get initial server data, set user information, and load initial cards
 api.getServerInfo()
 .then(([cardData, userInfo]) => { 
-  const userId = userInfo._id;
+  userID = userInfo._id;
   
-  const cardList = new Section({
-    items: [cardData],
+  cardList = new Section({
+    items: cardData,
     renderer: (data) => {
-      const card = new Card({data, handleCardClick: ((name, link) => {  
+      const card = new Card({data: {...data, userID}, handleCardClick: ((name, link) => {  
       imagePopup.open(name, link);
     }), handleDeleteClick: () => {
       event.stopPropagation();
       deleteCardPopup.open(data);
-    }//, 
-    //handleCardLike: () => {
-    //  card.handleLike(); 
-    //}
+    }, 
+    handleCardLike: () => {
+      card.handleLike(); 
+    }
   }, '#card-template');
 
     const cardElement = card.generateCard();
@@ -106,59 +102,11 @@ api.getServerInfo()
     }, '.photo-grid__items');
     
     cardList.renderItems();
-
-  const newUserInfo = new UserInfo({
-    userNameSelector: '.profile__name',
-    userJobSelector: '.profile__profession',
-    avatar: '.profile__avatar',
-  })
-
-  newUserInfo.setUserInfo({ name: userInfo.name, about: userInfo.about, id: userInfo._id, avatar: userInfo.avatar});    
-
-  console.log(userId);
-  console.log(cardList);
-  
+    newUserInfo.setUserInfo({ name: userInfo.name, about: userInfo.about, id: userInfo._id, avatar: userInfo.avatar});    
 
   })
-.catch((err) => console.log(`An error occurred when loading data: ${err}`));  
+.catch((err) => console.log(`An error occurred when loading initial user and card data: ${err}`));  
 
-
-
-
-//  // Create form to add new cards  
-//   const addFormPopup = new PopupWithForm({
-//     popupSelector: '.modal-type-add-card', 
-//     popupSubmit: (data) => {
-//       const {modal__cardname: name, modal__cardurl: link} = data;
-//       api.addCard({name, link})
-//       .then(data => {
-//         const card = new Card({data, handleCardClick: ((name, link) => {  
-//           imagePopup.open(name, link);
-//         }), handleDeleteClick: () => {
-//           event.stopPropagation();
-//           deleteCardPopup.open();
-//         }}, '#card-template');
-//         const cardElement = card.generateCard(userInfo._id);
-//         cardList.addItem(cardElement);
-//         addFormPopup.close();
-//       })       
-//     }
-//   })
-    
-//   addFormPopup.setEventListeners();
-    
-//   addButton.addEventListener('click', (e) => {
-//     addFormPopup.open();
-//   });     
-
-  // newUserInfo = new UserInfo({
-  //   userNameSelector: '.profile__name',
-  //   userJobSelector: '.profile__profession',
-  //   avatar: '.profile__avatar',
-  // })
-  // newUserInfo.setUserInfo({ name: userInfo.name, about: userInfo.about, id: userInfo._id, avatar: userInfo.avatar});   
-
-// })
 
 // Create form to add new cards  
 const addFormPopup = new PopupWithForm({
@@ -171,13 +119,17 @@ const addFormPopup = new PopupWithForm({
         imagePopup.open(name, link);
       }), handleDeleteClick: () => {
         event.stopPropagation();
-        deleteCardPopup.open();
+        deleteCardPopup.open(data);
+      },
+      handleCardLike: () => {
+        card.handleLike();
       }}, '#card-template');
       const cardElement = card.generateCard();
+      
       cardList.addItem(cardElement);
       addFormPopup.close();
     }) 
-    .catch((err) => console.log(`An error occurred when loading data: ${err}`));      
+    .catch((err) => console.log(`An error occurred when loading new card data: ${err}`));      
   }
 })
   
@@ -195,9 +147,9 @@ const editFormPopup = new PopupWithForm({
     const {modal__name:name, modal__profession:about} = data;
     api.setUserInfo({ name, about })
      .then(res => {
-      newUserInfo.setUserInfo({name: res.name, about:res.about})
+      newUserInfo.setUserProfile({name: res.name, about:res.about})
      })
-     .catch((err) => console.log(`An error occurred when loading data: ${err}`));
+     .catch((err) => console.log(`An error occurred when loading user profile data: ${err}`));
     editFormPopup.close();
   }
 
@@ -205,7 +157,7 @@ const editFormPopup = new PopupWithForm({
 
 editFormPopup.setEventListeners();
 
-//event listener for editButton 
+//Create event listener for Profile Edit Button 
 editButton.addEventListener('click', (e) => {
   newUserInfo.getUserInfo();
   modalName.textContent = profileName.textContent,
@@ -213,7 +165,7 @@ editButton.addEventListener('click', (e) => {
   editFormPopup.open();
 })   
 
-//create form to update profile picture
+//Create form to update profile picture
 
 const editAvatarFormPopup = new PopupWithForm({
   popupSelector: '.modal__type-edit-avatar',
@@ -223,13 +175,27 @@ const editAvatarFormPopup = new PopupWithForm({
      .then(data => {
       profileAvatar.src = avatarLink;
       editAvatarFormPopup.close();
-     });
+     })
+     .catch((err) => console.log(`An error occured when loading avatar data: ${err}`));
   }
 })  
 
 editAvatarFormPopup.setEventListeners();
 
-//event listener for Button 
+//Create event listener for Avatar Edit Button 
 avatarEditButton.addEventListener('click', (e) => {
 editAvatarFormPopup.open();
 })   
+
+//Create form to confirm delete
+const deleteCardPopup = new PopupWithoutForm({
+  popupSelector: '.modal-type-delete-card',
+  popupClick: () => {
+    api.removeCard(Card.getId())
+    .then((res) => {
+      Card.handleDelete(res);
+      deleteCardPopup.close();
+    })
+  }
+})
+deleteCardPopup.setEventListeners();
