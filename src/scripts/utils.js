@@ -22,10 +22,10 @@
 // };
 
 // !!!project requires this - add function in index.js so it runs for "save" buttons before submitting!!
-// export default function renderLoading(isLoading, buttonSelector) {
-//   if (isLoading) {
-//     buttonSelector.textContent = "Saving...";
-//   } else {
-//     buttonSelector.textContent = "Save";
-//   }
-// }
+export function renderLoading(isLoading, buttonSelector) {
+  if (isLoading) {
+    buttonSelector.textContent = "Saving...";
+  } else {
+    buttonSelector.textContent = "Save";
+  }
+}
