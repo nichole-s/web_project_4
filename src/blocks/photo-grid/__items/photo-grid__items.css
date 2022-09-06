@@ -1,4 +1,4 @@
-.photo-grid__items{
+.photo-grid__items {
   list-style-type: none;
   padding: 0;
   display: grid;
@@ -7,16 +7,16 @@
   grid-row-gap: 21px;
   grid-column-gap: 18px;
 }
-  
-@media screen and (max-width: 884px){
+
+@media screen and (max-width: 884px) {
   .photo-grid__items {
     grid-template-columns: repeat(2, 282px);
     grid-template-rows: repeat(3, 361px);
     justify-content: center;
   }
 }
-  
-@media screen and (max-width: 584px){
+
+@media screen and (max-width: 584px) {
   .photo-grid__items {
     grid-template-columns: repeat(1, 282px);
     grid-template-rows: repeat(6, 361px);

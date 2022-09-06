@@ -1,5 +1,5 @@
-.profile__edit{
-  background-image: url('./../../../../src/images/pencil-vector.svg');
+.profile__edit {
+  background-image: url("./../../../../src/images/pencil-vector.svg");
   position: absolute;
   top: 19px;
   right: 0;
@@ -13,7 +13,7 @@
   background-position: center;
   padding: 0;
 }
-  
+
 @media screen and (max-width: 584px) {
   .profile__edit {
     top: 6px;

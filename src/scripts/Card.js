@@ -1,20 +1,23 @@
 export default class Card {
-   constructor({data, handleCardClick, handleDeleteClick}, templateSelector) {
-
-     this._cardData = data;
-     this._link = data.link;
-     this._name = data.name;
-     this._templateSelector = templateSelector;
-     this._handleCardClick = handleCardClick;
-     this._handleDeleteClick = handleDeleteClick;
-     //this._handleCardLike = handleCardLike;
-     this._cardTemplate = document.querySelector(templateSelector).content.querySelector('.photo-grid__item');
-     this._deleteButton = this._cardTemplate.querySelector('.photo-grid__trash');
-     this._id = data._id; //card id
-     this._likes = data.likes;
-     this._ownerId = data.owner._id;  
-     this._userID = data.userID;
-   }   
+  constructor(
+    { data, handleCardClick, handleDeleteClick, handleCardLike },
+    templateSelector
+  ) {
+    this._cardData = data;
+    this._link = data.link;
+    this._name = data.name;
+    this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
+    this._handleDeleteClick = handleDeleteClick;
+    this._handleCardLike = handleCardLike;
+    this._cardTemplate = document
+      .querySelector(templateSelector)
+      .content.querySelector(".photo-grid__item");
+    this._id = data._id; //card id
+    this._likes = data.likes;
+    this._ownerId = data.owner._id;
+    this._userID = data.userID;
+  }
 
   getId() {
     return this._id;
@@ -25,76 +28,73 @@ export default class Card {
   }
 
   handleLike() {
-    //this.classList.toggle('photo-grid__liked');  
-    this._card.querySelector('photo-grid__like-button').classlist.toggle('photo-grid__liked');
+    this._cardLikeButton.classList //.querySelector("photo-grid__like-button")
+      .toggle("photo-grid__liked");
   }
 
-  handleDelete() { 
-    //  e.target.closest('.photo-grid__item').remove();
-    //  e.stopPropagation();
+  handleDelete() {
     this._card.remove();
     this._card = null;
   }
 
   cardLiked() {
-    return this._likes.some(item => item._id === this._userID);
+    return this._likes.some((item) => item._id === this._userID);
   }
 
-   likeCount() {
-     this._card.querySelector(".photo-grid__like-count").textContent = this._likes.length;
-     if (this.cardLiked()) {
-       this._cardLikeButton.classList.add("photo-grid__liked");
-     } else {
-       this._cardLikeButton.classList.remove("photo-grid__liked");
-     }
-   }
-
-  updateLikes(likes) {
-    this._likes = likes;
-    this._likeCount();
-  }
-
-  showLikes() {
-    if (this._likes.length > 0) {
-      this._card.querySelector(".photo-grid__like-count").classList.add("photo-grid__like-count_visible");
-    } else if (this._likes.length === 0) {
-      this._card.querySelector(".photo-grid__like-count").classList.remove("photo-grid__like-count_visible");
+  likeCount() {
+    this._card.querySelector(".photo-grid__like-count").textContent =
+      this._likes.length;
+    if (this.cardLiked()) {
+      this._cardLikeButton.classList.add("photo-grid__liked");
+    } else {
+      this._cardLikeButton.classList.remove("photo-grid__liked");
     }
   }
 
+  updateLikes(likes) {
+    this._likes = likes;
+    //this._likeCount();
+    this.likeCount();
+  }
+
   _showDeleteBtn() {
-    //if (this._ownerId === currentUserID) {
     if (this._ownerId === "8b0d4eceaff5031d8edffe2c") {
-      this._card.querySelector(".photo-grid__trash").classList.add("photo-grid__trash_visible");
+      this._card
+        .querySelector(".photo-grid__trash")
+        .classList.add("photo-grid__trash_visible");
     } else {
-      this._card.querySelector('.photo-grid__trash').classList.remove('photo-grid__trash_visible');
-    }  
+      this._card
+        .querySelector(".photo-grid__trash")
+        .classList.remove("photo-grid__trash_visible");
+    }
   }
 
   _setEventListeners() {
-
     this._cardLikeButton.addEventListener("click", this._handleCardLike);
 
-    this._cardRemoveButton.addEventListener("click", (e) => this._handleDeleteClick(e));
+    this._cardRemoveButton.addEventListener("click", (e) =>
+      this._handleDeleteClick(e)
+    );
 
-    this._cardImage.addEventListener("click", () => this._handleCardClick(this._name, this._link));
-
+    this._cardImage.addEventListener("click", () =>
+      this._handleCardClick(this._name, this._link)
+    );
   }
 
-  generateCard() { 
-    this._card = this._getCardTemplate(); 
-    this._cardImage = this._card.querySelector('.photo-grid__photo');
+  generateCard() {
+    this._card = this._getCardTemplate();
+    this._cardImage = this._card.querySelector(".photo-grid__photo");
     this._cardImage.style.backgroundImage = `url(${this._link})`;
-    this._card.querySelector('.photo-grid__heading').textContent = this._name;
-    this._cardLikeButton = this._card.querySelector('.photo-grid__like'); 
-    this._cardRemoveButton = this._card.querySelector('.photo-grid__trash'); 
-    this._cardRemoveButton.classList.add('photo-grid__trash_visible');
+    this._card.querySelector(".photo-grid__heading").textContent = this._name;
+    this._cardLikeButton = this._card.querySelector(".photo-grid__like");
+    this._cardRemoveButton = this._card.querySelector(".photo-grid__trash");
+    this._cardRemoveButton.classList.add("photo-grid__trash_visible");
     this._showDeleteBtn();
-    //this._likes = this.likeCount();
+    this._likes = this.likeCount();
     this._setEventListeners();
-    return this._card; 
+    return this._card;
   }
-}; 
+}
 
 //Project 7 requirements:
 // Create the Card class, which creates a card with text and an image link, as per the following requirements:
@@ -106,8 +106,8 @@ export default class Card {
 
 //Project 8 requirements:
 // Transforming the Card Class
-// Connect the Card class to the popup. 
-// Make Card take the handleCardClick() function into the constructor. 
+// Connect the Card class to the popup.
+// Make Card take the handleCardClick() function into the constructor.
 // When the user clicks on the card, this function will open the popup with an image.
 
 //Project 9 requirements:

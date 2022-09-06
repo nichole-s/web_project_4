@@ -1,7 +1,8 @@
-.photo-grid__like{
+.photo-grid__like {
   width: 20px;
   height: 20px;
-  background: transparent url('./../../../../src/images/heart-vector.svg') center no-repeat;
+  background: transparent url("./../../../../src/images/heart-vector.svg")
+    center no-repeat;
   background-size: 20px;
   border: 0;
 }

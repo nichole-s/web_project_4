@@ -1,19 +1,21 @@
-import Popup from './Popup.js';
+import Popup from "./Popup.js";
 
 class PopupWithForm extends Popup {
-  constructor ({popupSelector, popupSubmit}) {
+  constructor({ popupSelector, popupSubmit }) {
     super(popupSelector);
-    this._popupSubmit = popupSubmit; 
-    this._form = this._popupElement.querySelector('.modal__form'); 
+    this._popupSubmit = popupSubmit;
+    this._form = this._popupElement.querySelector(".modal__form");
+    // this._submitButton = this._popupElement.querySelector(".modal__submit");
+    // this._submitButtonText = this._submitButton.textContent;
   }
 
-  _getInputValues(){
-    const inputs = [...this._form.querySelectorAll('.modal__input')];
+  _getInputValues() {
+    const inputs = [...this._form.querySelectorAll(".modal__input")];
     const inputValues = {};
 
-    inputs.forEach(input => inputValues[input.name] = input.value)
+    inputs.forEach((input) => (inputValues[input.name] = input.value));
 
-    return inputValues; 
+    return inputValues;
   }
 
   close() {
@@ -21,8 +23,16 @@ class PopupWithForm extends Popup {
     super.close();
   }
 
+  // renderLoading(isLoading, loadingText = "Saving...") {
+  //   if (isLoading) {
+  //     this._submitButton.textContent = loadingText;
+  //   } else {
+  //     this._submitButton.textContent = this._submitButtonText;
+  //   }
+  // }
+
   setEventListeners() {
-    this._popupElement.addEventListener('submit', (evt) => {
+    this._popupElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._popupSubmit(this._getInputValues());
     });
@@ -30,13 +40,13 @@ class PopupWithForm extends Popup {
   }
 }
 
-export default PopupWithForm; 
+export default PopupWithForm;
 
 // // Creating the PopupWithForm Class
 // // Create PopupWithForm as a child class of Popup. The PopupWithForm class must comply with the following requirements:
 // // It takes a callback of the form submission into the constructor, as well as the popup selector.
 // // It stores a private method named _getInputValues(), which collects data from all the input fields.
-// // It modifies the setEventListeners() parent method. The setEventListeners() method of the PopupWithForm 
+// // It modifies the setEventListeners() parent method. The setEventListeners() method of the PopupWithForm
 // // class has to add the click event listener to the close icon while also adding the submit event handler.
 // // It modifies the close() parent method in order to reset the form once the popup is closed.
 // // Create an instance of the PopupWithForm class for each popup.

@@ -1,6 +1,7 @@
-.photo-grid__trash{
+.photo-grid__trash {
   display: none;
-  background: transparent url('./../../../../src/images/trash.svg') center no-repeat;
+  background: transparent url("./../../../../src/images/trash.svg") center
+    no-repeat;
   position: absolute;
   top: 19px;
   right: 15px;
@@ -11,9 +12,8 @@
 
 .photo-grid__trash:hover {
   opacity: 0.5;
-
 }
 
-.photo-grid__trash_visible{
-  display: block
+.photo-grid__trash_visible {
+  display: block;
 }

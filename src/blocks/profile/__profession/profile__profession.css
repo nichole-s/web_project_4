@@ -1,4 +1,4 @@
-.profile__profession{
+.profile__profession {
   font-weight: normal;
   font-size: 18px;
   line-height: 22px;
@@ -6,11 +6,10 @@
   margin-top: 16px;
   text-overflow: ellipsis;
   overflow: hidden;
-
 }
 
-@media screen and (max-width: 584px){
-  .profile__name{
+@media screen and (max-width: 584px) {
+  .profile__name {
     font-size: 14px;
     line-height: 17px;
   }

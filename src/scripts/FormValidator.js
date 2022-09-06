@@ -1,20 +1,20 @@
 // Create the FormValidator class, which sets settings for validating form fields according to the following requirements:
-// Its constructor has two parameters. 
-// The first parameter is a settings object that stores selectors and form classes, 
+// Its constructor has two parameters.
+// The first parameter is a settings object that stores selectors and form classes,
 // and the second one takes a form element to be validated.
 class FormValidator {
   constructor(settings, formElement) {
     this._inputSelector = settings.inputSelector;
     this._submitButtonSelector = settings.submitButtonSelector;
-    this._inactiveButtonClass = settings.inactiveButtonClass; 
+    this._inactiveButtonClass = settings.inactiveButtonClass;
     this._inputErrorClass = settings.inputErrorClass;
     this._errorClass = settings.errorClass;
     this._form = formElement;
     this._inputs = [...this._form.querySelectorAll(this._inputSelector)];
   }
-// It has private methods for processing the form, which include: 
-// checking the field's validity, changing the state of the Submit button, 
-// and adding all the needed handlers.
+  // It has private methods for processing the form, which include:
+  // checking the field's validity, changing the state of the Submit button,
+  // and adding all the needed handlers.
   _showErrorMessage(input) {
     const error = document.querySelector(`#${input.id}-error`);
     error.textContent = input.validationMessage;
@@ -37,10 +37,10 @@ class FormValidator {
   _toggleButtonState() {
     const button = this._form.querySelector(this._submitButtonSelector);
     const isValid = this._inputs.every((input) => input.validity.valid);
-    
+
     if (isValid) {
       button.classList.remove(this._inactiveButtonClass);
-    } else {      
+    } else {
       button.classList.add(this._inactiveButtonClass);
     }
   }

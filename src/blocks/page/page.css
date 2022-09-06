@@ -1,20 +1,19 @@
-.page{
+.page {
   background-color: black;
   max-width: 882px;
   margin: 0 auto;
-  font-family: 'Inter', 'Arial', sans-serif;
+  font-family: "Inter", "Arial", sans-serif;
   font-style: normal;
 }
 
-@media screen and (min-width: 585px) and (max-width: 884px){
-  .page{
+@media screen and (min-width: 585px) and (max-width: 884px) {
+  .page {
     max-width: 582px;
   }
 }
 
-@media screen and (max-width: 584px){
-  .page{
+@media screen and (max-width: 584px) {
+  .page {
     max-width: 282px;
   }
 }
-

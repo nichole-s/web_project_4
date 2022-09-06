@@ -1,4 +1,4 @@
-.modal__heading{
+.modal__heading {
   font-weight: 900;
   font-size: 24px;
   line-height: 29px;
@@ -9,7 +9,7 @@
 
 @media screen and (min-width: 0) and (max-width: 550px) {
   .modal__heading {
-      width: 169px;
-      margin: 24px 36px 0;
-    }
+    width: 169px;
+    margin: 24px 36px 0;
   }
+}

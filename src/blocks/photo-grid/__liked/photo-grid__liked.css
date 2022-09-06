@@ -1,6 +1,7 @@
-.photo-grid__liked{
+.photo-grid__liked {
   width: 20px;
-  background: transparent url('./../../../../src/images/filled_heart.svg') center no-repeat;
+  background: transparent url("./../../../../src/images/filled_heart.svg")
+    center no-repeat;
   background-size: 20px;
   border: 0;
 }

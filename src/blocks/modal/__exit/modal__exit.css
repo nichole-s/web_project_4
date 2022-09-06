@@ -1,4 +1,4 @@
-.modal__exit{
+.modal__exit {
   position: absolute;
   display: inline-block;
   top: -40px;
@@ -12,4 +12,3 @@
   border: 0;
   cursor: pointer;
 }
-

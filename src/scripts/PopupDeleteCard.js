@@ -1,10 +1,12 @@
 import Popup from "./Popup.js";
 
 class PopupDeleteCard extends Popup {
-  constructor({popupSelector}) {
+  constructor({ popupSelector }) {
     super(popupSelector);
-    this._submitButton = this._popupElement.querySelector('.modal__submit_type-delete-card');
-  } 
+    this._submitButton = this._popupElement.querySelector(
+      ".modal__submit_type-delete-card"
+    );
+  }
 
   open(popupClick) {
     super.open();
@@ -12,14 +14,10 @@ class PopupDeleteCard extends Popup {
   }
 
   setEventListeners() {
-    
-    this._submitButton.addEventListener("click", (evt) => { 
-      //evt.preventDefault();
-      console.log("I heard you");
-      //this._submitButton.textContent = 'Deleting...';
+    this._submitButton.addEventListener("click", () => {
       this._popupClick();
     });
-    super.setEventListeners(); 
+    super.setEventListeners();
   }
 }
 

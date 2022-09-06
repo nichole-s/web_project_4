@@ -1,4 +1,4 @@
-.photo-grid__like-count{
+.photo-grid__like-count {
   font-weight: 500;
   font-size: 18px;
   line-height: 22px;
@@ -7,8 +7,8 @@
   text-align: center;
 }
 
-@media screen and (max-width: 584px){
-  .photo-grid__like-count{
+@media screen and (max-width: 584px) {
+  .photo-grid__like-count {
     font-size: 14px;
     line-height: 17px;
   }

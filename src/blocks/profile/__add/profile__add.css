@@ -1,5 +1,6 @@
-.profile__add{
-  background: #000000 url('./../../../../src/images/add-vector.svg') center no-repeat;
+.profile__add {
+  background: #000000 url("./../../../../src/images/add-vector.svg") center
+    no-repeat;
   width: 150px;
   height: 50px;
   padding: 0;
@@ -8,16 +9,16 @@
   border: 2px solid #ffffff;
   background-size: 22px;
 }
-  
-@media screen and (max-width: 885px){
-  .profile__add{
+
+@media screen and (max-width: 885px) {
+  .profile__add {
     width: 88%;
     margin: 36px auto;
   }
 }
 
-@media screen and (max-width: 584px){
-  .profile__add{
+@media screen and (max-width: 584px) {
+  .profile__add {
     padding-top: 36px;
   }
 }

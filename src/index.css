@@ -1,22 +1,9 @@
-@import url('../src/vendor/normalize.css');
-@import url('../src/vendor/fonts/fonts.css');
-@import url('../src/blocks/page/page.css');
-@import url('../src/blocks/button/button.css');
-@import url('../src/blocks/header/header.css');
-@import url('../src/blocks/profile/profile.css');
-@import url('../src/blocks/photo-grid/photo-grid.css');
-@import url('../src/blocks/footer/footer.css');
-@import url('../src/blocks/modal/modal.css');
-
-
-
-
-
-
-
-
-
-
-
-
-
+@import url("../src/vendor/normalize.css");
+@import url("../src/vendor/fonts/fonts.css");
+@import url("../src/blocks/page/page.css");
+@import url("../src/blocks/button/button.css");
+@import url("../src/blocks/header/header.css");
+@import url("../src/blocks/profile/profile.css");
+@import url("../src/blocks/photo-grid/photo-grid.css");
+@import url("../src/blocks/footer/footer.css");
+@import url("../src/blocks/modal/modal.css");

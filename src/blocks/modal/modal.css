@@ -18,11 +18,10 @@
 @import url(./__heading/modal__heading-avatar.css);
 @import url(./__form/modal__form_type-delete-card.css);
 
-
 .modal {
   visibility: hidden;
   display: flex;
-  position:fixed;
+  position: fixed;
   top: 0;
   right: 0;
   width: 100vw;

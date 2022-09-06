@@ -32,7 +32,6 @@ import UserInfo from "./scripts/UserInfo.js";
 import headerLogoSrc from "./images/logo-vector.svg";
 import avatarPhotoSrc from "./images/avatar-photo.jpg";
 import Api from "./scripts/Api.js";
-import { renderLoading } from "./scripts/utils";
 
 // Make sure logo and avatar image show on page
 const logoImage = document.getElementById("header-logo");
@@ -99,7 +98,6 @@ function createCard(data) {
       handleDeleteClick: (e) => {
         e.stopPropagation();
         deleteCardPopup.open(() => {
-          //console.log('card is', data._id);
           api
             .removeCard(data._id)
             .then(() => {
@@ -113,6 +111,25 @@ function createCard(data) {
       },
       handleCardLike: () => {
         card.handleLike();
+        if (data.likes.some((item) => item._id === userID)) {
+          api
+            .removeLike(data._id)
+            .then((res) => {
+              card.updateLikes(res.likes);
+            })
+            .catch((err) =>
+              console.log(`An error occurred when removing a like: ${err}`)
+            );
+        } else {
+          api
+            .addLike(data._id)
+            .then((res) => {
+              card.updateLikes(res.likes);
+            })
+            .catch((err) =>
+              console.log(`An error occurred when adding a like: ${err}`)
+            );
+        }
       },
     },
     "#card-template"

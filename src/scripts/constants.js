@@ -1,36 +1,52 @@
-export const cardList = document.querySelector('.photo-grid__items');
-export const modalEdit = document.querySelector('.modal-type-edit-profile');
-export const editButton = document.querySelector('.profile__edit');
-export const editProfileCloseButton = modalEdit.querySelector('.modal__exit_type_edit-profile');
-export const modalAdd = document.querySelector('.modal-type-add-card');
-export const addButton = document.querySelector('.profile__add');
-export const addCardCloseButton = modalAdd.querySelector('.modal__exit_type_add-card');
-export const modalAvatar = document.querySelector('.modal__type-edit-avatar');
-export const avatarEditButton = document.querySelector('.profile__avatar')
-export const avatarCloseButton = modalAvatar.querySelector('.modal__exit_type_delete-card');
-export const modalImage = document.querySelector('.modal-type-image');  
-export const imageCloseButton = modalImage.querySelector('.modal__exit_type_image');
-export const modals = Array.from(document.querySelectorAll('.modal'));
-export const modalForm = Array.from(document.querySelectorAll('.modal__form')); 
-export const modalImageFigure = modalImage.querySelector('.modal__image-figure');
-export const modalImageCaption = modalImage.querySelector('.modal__image-caption');
-export const profileName = document.querySelector('.profile__name');
-export const profileProfession = document.querySelector('.profile__profession');
-export const profileAvatar = document.querySelector('.profile__avatar-photo');
-export const modalName = modalEdit.querySelector('.modal__name');
-export const modalProfession = modalEdit.querySelector('.modal__profession');
-export const formAdd = modalAdd.querySelector('.modal__form_type_add-card');
-export const formEdit = modalEdit.querySelector('.modal__form_type_edit-profile');
-export const formAvatar = modalAvatar.querySelector('.modal__form_type-edit-avatar');
-export const cardSection = document.querySelector('.photo-grid__items');
+export const cardList = document.querySelector(".photo-grid__items");
+export const modalEdit = document.querySelector(".modal-type-edit-profile");
+export const editButton = document.querySelector(".profile__edit");
+export const editProfileCloseButton = modalEdit.querySelector(
+  ".modal__exit_type_edit-profile"
+);
+export const modalAdd = document.querySelector(".modal-type-add-card");
+export const addButton = document.querySelector(".profile__add");
+export const addCardCloseButton = modalAdd.querySelector(
+  ".modal__exit_type_add-card"
+);
+export const modalAvatar = document.querySelector(".modal__type-edit-avatar");
+export const avatarEditButton = document.querySelector(".profile__avatar");
+export const avatarCloseButton = modalAvatar.querySelector(
+  ".modal__exit_type_delete-card"
+);
+export const modalImage = document.querySelector(".modal-type-image");
+export const imageCloseButton = modalImage.querySelector(
+  ".modal__exit_type_image"
+);
+export const modals = Array.from(document.querySelectorAll(".modal"));
+export const modalForm = Array.from(document.querySelectorAll(".modal__form"));
+export const modalImageFigure = modalImage.querySelector(
+  ".modal__image-figure"
+);
+export const modalImageCaption = modalImage.querySelector(
+  ".modal__image-caption"
+);
+export const profileName = document.querySelector(".profile__name");
+export const profileProfession = document.querySelector(".profile__profession");
+export const profileAvatar = document.querySelector(".profile__avatar-photo");
+export const modalName = modalEdit.querySelector(".modal__name");
+export const modalProfession = modalEdit.querySelector(".modal__profession");
+export const formAdd = modalAdd.querySelector(".modal__form_type_add-card");
+export const formEdit = modalEdit.querySelector(
+  ".modal__form_type_edit-profile"
+);
+export const formAvatar = modalAvatar.querySelector(
+  ".modal__form_type-edit-avatar"
+);
+export const cardSection = document.querySelector(".photo-grid__items");
 export const defaultConfig = {
-    formSelector: ".modal__form",
-    inputSelector: ".modal__input",
-    submitButtonSelector: ".modal__submit",
-    inactiveButtonClass: "modal__submit_disabled",
-    inputErrorClass: "modal__input_type_error",
-    errorClass: "modal__error_visible",
-  };
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__submit",
+  inactiveButtonClass: "modal__submit_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible",
+};
 
 // export const initialCards = [
 //   {
