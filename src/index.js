@@ -170,35 +170,38 @@ api
   );
 
 // Create form to add new cards
-const addFormPopup = new PopupWithForm({
+const addCardPopup = new PopupWithForm({
   popupSelector: ".modal-type-add-card",
   popupSubmit: (data) => {
     const { modal__cardname: name, modal__cardurl: link } = data;
+    addCardPopup.renderLoading(true);
     api
       .addCard({ name, link })
       .then((data) => {
         const cardElement = createCard(data);
         cardList.addItem(cardElement);
-        addFormPopup.close();
+        addCardPopup.close();
       })
       .catch((err) =>
         console.log(`An error occurred when loading new card data: ${err}`)
-      );
+      )
+      .finally(() => addCardPopup.renderLoading(false));
   },
 });
 
-addFormPopup.setEventListeners();
+addCardPopup.setEventListeners();
 
 addButton.addEventListener("click", (e) => {
-  addFormPopup.open();
+  addCardPopup.open();
 });
 
 //Create form to change user info
 
-const editFormPopup = new PopupWithForm({
+const editProfilePopup = new PopupWithForm({
   popupSelector: ".modal-type-edit-profile",
   popupSubmit: (data) => {
     const { modal__name: name, modal__profession: about } = data;
+    editProfilePopup.renderLoading(true);
     api
       .setUserInfo({ name, about })
       .then((res) => {
@@ -206,42 +209,45 @@ const editFormPopup = new PopupWithForm({
       })
       .catch((err) =>
         console.log(`An error occurred when loading user profile data: ${err}`)
-      );
-    editFormPopup.close();
+      )
+      .finally(() => editProfilePopup.renderLoading(false));
+    editProfilePopup.close();
   },
 });
 
-editFormPopup.setEventListeners();
+editProfilePopup.setEventListeners();
 
 //Create event listener for Profile Edit Button
 editButton.addEventListener("click", (e) => {
   newUserInfo.getUserInfo();
   (modalName.textContent = profileName.textContent),
     (modalProfession.textContent = profileProfession.textContent),
-    editFormPopup.open();
+    editProfilePopup.open();
 });
 
 //Create form to update profile picture
 
-const editAvatarFormPopup = new PopupWithForm({
+const editAvatarPopup = new PopupWithForm({
   popupSelector: ".modal__type-edit-avatar",
   popupSubmit: (data) => {
     const avatarLink = data.modal__avatarurl;
+    editAvatarPopup.renderLoading(true);
     api
       .setUserAvatar(avatarLink)
       .then((data) => {
         profileAvatar.src = avatarLink;
-        editAvatarFormPopup.close();
+        editAvatarPopup.close();
       })
       .catch((err) =>
         console.log(`An error occured when loading avatar data: ${err}`)
-      );
+      )
+      .finally(() => editAvatarPopup.renderLoading(false));
   },
 });
 
-editAvatarFormPopup.setEventListeners();
+editAvatarPopup.setEventListeners();
 
 //Create event listener for Avatar Edit Button
 avatarEditButton.addEventListener("click", (e) => {
-  editAvatarFormPopup.open();
+  editAvatarPopup.open();
 });
