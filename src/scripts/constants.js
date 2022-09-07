@@ -9,7 +9,7 @@ export const addButton = document.querySelector(".profile__add");
 export const addCardCloseButton = modalAdd.querySelector(
   ".modal__exit_type_add-card"
 );
-export const modalAvatar = document.querySelector(".modal__type-edit-avatar");
+export const modalAvatar = document.querySelector(".modal-type-edit-avatar");
 export const avatarEditButton = document.querySelector(".profile__avatar");
 export const avatarCloseButton = modalAvatar.querySelector(
   ".modal__exit_type_delete-card"

@@ -228,7 +228,7 @@ editButton.addEventListener("click", (e) => {
 //Create form to update profile picture
 
 const editAvatarPopup = new PopupWithForm({
-  popupSelector: ".modal__type-edit-avatar",
+  popupSelector: ".modal-type-edit-avatar",
   popupSubmit: (data) => {
     const avatarLink = data.modal__avatarurl;
     editAvatarPopup.renderLoading(true);
