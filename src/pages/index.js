@@ -1,5 +1,5 @@
-import "./index.css";
-import FormValidator from "./scripts/FormValidator.js";
+import "../pages/index.css";
+import FormValidator from "../components/FormValidator.js";
 import {
   defaultConfig,
   modalEdit,
@@ -21,24 +21,24 @@ import {
   cardSection,
   modalName,
   modalProfession,
-} from "./scripts/constants.js";
-import Card from "./scripts/Card.js";
-import Section from "./scripts/Section.js";
-import Popup from "./scripts/Popup.js";
-import PopupWithImage from "./scripts/PopupWithImage.js";
-import PopupWithForm from "./scripts/PopupWithForm.js";
-import PopupDeleteCard from "./scripts/PopupDeleteCard";
-import UserInfo from "./scripts/UserInfo.js";
-import headerLogoSrc from "./images/logo-vector.svg";
-import avatarPhotoSrc from "./images/avatar-photo.jpg";
-import Api from "./scripts/Api.js";
+} from "../utils/constants.js";
+import Card from "../components/Card.js";
+import Section from "../components/Section.js";
+import Popup from "../components/Popup.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupDeleteCard from "../components/PopupDeleteCard";
+import UserInfo from "../components/UserInfo.js";
+import headerLogoSrc from "../images/logo-vector.svg";
+import avatarPhotoSrc from "../images/avatar-photo.jpg";
+import Api from "../utils/Api.js";
 
 // Make sure logo and avatar image show on page
 const logoImage = document.getElementById("header-logo");
 logoImage.src = headerLogoSrc;
 
-const avatarImage = document.getElementById("avatar-photo");
-avatarImage.src = avatarPhotoSrc;
+// const avatarImage = document.getElementById("avatar-photo");
+// avatarImage.src = avatarPhotoSrc;
 
 //Create instance of Api with my user information
 const api = new Api({
@@ -67,13 +67,6 @@ imagePopup.setEventListeners();
 //Create form to confirm delete
 const deleteCardPopup = new PopupDeleteCard({
   popupSelector: ".modal-type-delete-card",
-  // popupClick: () => {
-  //   api.removeCard(Card.getId())
-  //   .then((res) => {
-  //     Card.handleDelete(res);
-  //     deleteCardPopup.close();
-  //   })
-  //  }
 });
 deleteCardPopup.setEventListeners();
 
@@ -82,7 +75,7 @@ let cardList;
 
 //Create instance of UserInfo
 
-const newUserInfo = new UserInfo({
+const userInfo = new UserInfo({
   userNameSelector: ".profile__name",
   userJobSelector: ".profile__profession",
   avatar: ".profile__avatar",
@@ -95,9 +88,9 @@ function createCard(data) {
       handleCardClick: (name, link) => {
         imagePopup.open(name, link);
       },
-      handleDeleteClick: (e) => {
-        e.stopPropagation();
+      handleDeleteClick: () => {
         deleteCardPopup.open(() => {
+          deleteCardPopup.renderLoading(true);
           api
             .removeCard(data._id)
             .then(() => {
@@ -106,12 +99,12 @@ function createCard(data) {
             })
             .catch((err) =>
               console.log(`An error occurred when deleting card: ${err}`)
-            );
+            )
+            .finally(() => deleteCardPopup.renderLoading(false));
         });
       },
       handleCardLike: () => {
-        card.handleLike();
-        if (data.likes.some((item) => item._id === userID)) {
+        if (card.cardLiked()) {
           api
             .removeLike(data._id)
             .then((res) => {
@@ -140,9 +133,8 @@ function createCard(data) {
 // Get initial server data, set user information, and load initial cards
 api
   .getServerInfo()
-  .then(([cardData, userInfo]) => {
-    userID = userInfo._id;
-
+  .then(([cardData, userData]) => {
+    userID = userData._id;
     cardList = new Section(
       {
         items: cardData,
@@ -156,11 +148,10 @@ api
     );
 
     cardList.renderItems();
-    newUserInfo.setUserInfo({
-      name: userInfo.name,
-      about: userInfo.about,
-      id: userInfo._id,
-      avatar: userInfo.avatar,
+    userInfo.setUserInfo({
+      name: userData.name,
+      about: userData.about,
+      avatar: userData.avatar,
     });
   })
   .catch((err) =>
@@ -205,13 +196,13 @@ const editProfilePopup = new PopupWithForm({
     api
       .setUserInfo({ name, about })
       .then((res) => {
-        newUserInfo.setUserProfile({ name: res.name, about: res.about });
+        userInfo.setUserProfile({ name: res.name, about: res.about });
+        editProfilePopup.close();
       })
       .catch((err) =>
         console.log(`An error occurred when loading user profile data: ${err}`)
       )
       .finally(() => editProfilePopup.renderLoading(false));
-    editProfilePopup.close();
   },
 });
 
@@ -219,10 +210,10 @@ editProfilePopup.setEventListeners();
 
 //Create event listener for Profile Edit Button
 editButton.addEventListener("click", (e) => {
-  newUserInfo.getUserInfo();
-  (modalName.textContent = profileName.textContent),
-    (modalProfession.textContent = profileProfession.textContent),
-    editProfilePopup.open();
+  const { userName, userJob } = userInfo.getUserInfo();
+  modalName.textContent = userName;
+  modalProfession.textContent = userJob;
+  editProfilePopup.open();
 });
 
 //Create form to update profile picture
@@ -235,7 +226,7 @@ const editAvatarPopup = new PopupWithForm({
     api
       .setUserAvatar(avatarLink)
       .then((data) => {
-        profileAvatar.src = avatarLink;
+        userInfo.setUserAvatar(avatarLink);
         editAvatarPopup.close();
       })
       .catch((err) =>

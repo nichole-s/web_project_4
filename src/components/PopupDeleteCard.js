@@ -13,8 +13,17 @@ class PopupDeleteCard extends Popup {
     this._popupClick = popupClick;
   }
 
+  renderLoading(isLoading, loadingText = "Saving...") {
+    if (isLoading) {
+      this._submitButton.textContent = loadingText;
+    } else {
+      this._submitButton.textContent = this._submitButtonText;
+    }
+  }
+
   setEventListeners() {
-    this._submitButton.addEventListener("click", () => {
+    this._submitButton.addEventListener("click", (evt) => {
+      evt.preventDefault();
       this._popupClick();
     });
     super.setEventListeners();

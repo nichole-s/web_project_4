@@ -32,7 +32,7 @@ export default class Api {
         name,
         link,
       }),
-    }).then((r) => this._serverResponseCheck(r));
+    }).then(this._serverResponseCheck);
   }
 
   removeCard(cardID) {
@@ -70,7 +70,7 @@ export default class Api {
         name,
         about,
       }),
-    }).then((r) => this._serverResponseCheck(r));
+    }).then(this._serverResponseCheck);
   }
 
   setUserAvatar(avatar) {
@@ -80,6 +80,6 @@ export default class Api {
       body: JSON.stringify({
         avatar,
       }),
-    }).then((r) => this._serverResponseCheck(r));
+    }).then(this._serverResponseCheck);
   }
 }
