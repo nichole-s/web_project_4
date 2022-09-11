@@ -63,7 +63,7 @@ export default class Card {
     this._cardLikeButton.addEventListener("click", this._handleCardLike);
 
     this._cardRemoveButton.addEventListener("click", (evt) => {
-      evt.preventDefault();
+      evt.stopPropagation();
       this._handleDeleteClick(evt);
     });
 

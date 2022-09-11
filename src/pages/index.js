@@ -27,7 +27,7 @@ import Section from "../components/Section.js";
 import Popup from "../components/Popup.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
-import PopupDeleteCard from "../components/PopupDeleteCard";
+import PopupWithConfirmation from "../components/PopupWithConfirmation";
 import UserInfo from "../components/UserInfo.js";
 import headerLogoSrc from "../images/logo-vector.svg";
 import avatarPhotoSrc from "../images/avatar-photo.jpg";
@@ -65,7 +65,7 @@ const imagePopup = new PopupWithImage({
 imagePopup.setEventListeners();
 
 //Create form to confirm delete
-const deleteCardPopup = new PopupDeleteCard({
+const deleteCardPopup = new PopupWithConfirmation({
   popupSelector: ".modal-type-delete-card",
 });
 deleteCardPopup.setEventListeners();
@@ -78,7 +78,7 @@ let cardList;
 const userInfo = new UserInfo({
   userNameSelector: ".profile__name",
   userJobSelector: ".profile__profession",
-  avatar: ".profile__avatar",
+  avatar: ".profile__avatar-photo",
 });
 
 function createCard(data) {
