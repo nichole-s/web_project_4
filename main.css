@@ -17,7 +17,7 @@
 .profile{position:relative;display:flex;flex-flow:row;width:100%;max-width:882px;height:120px;margin:40px auto 50px;color:#fff}@media screen and (max-width:884px){.profile{flex-direction:column;width:auto;height:auto;align-items:center;text-align:center;margin-bottom:36px}}
 .photo-grid__items{list-style-type:none;padding:0;display:grid;grid-template-columns:repeat(3,282px);grid-template-rows:repeat(2,361px);grid-row-gap:21px;grid-column-gap:18px}@media screen and (max-width:884px){.photo-grid__items{grid-template-columns:repeat(2,282px);grid-template-rows:repeat(3,361px);justify-content:center}}@media screen and (max-width:584px){.photo-grid__items{grid-template-columns:repeat(1,282px);grid-template-rows:repeat(6,361px);justify-content:center}}
 .photo-grid__item{width:282px;height:361px;padding:0;border-radius:10px;background-color:#fff;display:flex;flex-wrap:wrap}
-.photo-grid__photo{position:relative;width:282px;height:282px;border-radius:10px 10px 0 0;margin:0;background-size:cover}
+.photo-grid__photo{position:relative;width:282px;height:282px;border-radius:10px 10px 0 0;margin:0;background-size:cover;cursor:pointer}
 .photo-grid__card{background-color:#fff;width:246px;height:23px;display:flex;justify-content:space-between;margin:25px 15px 31px 21px}
 .photo-grid__heading{font-weight:900;font-size:24px;line-height:29px;color:#000;margin:0;max-width:220px;text-overflow:ellipsis;white-space:nowrap;display:block;overflow:hidden;height:32px}
 .photo-grid__like{width:20px;height:20px;background:transparent url(49570bcb1d637fdb38e5.svg) 50% no-repeat;background-size:20px;border:0}
@@ -47,5 +47,5 @@
 .modal__form_type-edit-avatar{max-width:430px;max-height:272px}
 .modal__heading-avatar{margin:36px}
 .modal__form_type-delete-card{max-width:430px;max-height:181px;padding-bottom:36px}
-.modal{visibility:hidden;display:flex;position:fixed;top:0;right:0;width:100vw;height:100vh;justify-content:center;align-items:center;background-color:rgba(0,0,0,.5);transition:visibility 0s,opacity 1s linear}.modal_visible{visibility:visible;opacity:1;pointer-events:all}.modal_visible.modal__type_image{visibility:visible;background-color:rgba(0,0,0,.9)}
+.modal{visibility:hidden;display:flex;position:fixed;top:0;right:0;width:100vw;height:100vh;justify-content:center;align-items:center;background-color:rgba(0,0,0,.5);transition:visibility 0s 1s,opacity 1s linear}.modal_visible{visibility:visible;opacity:1;pointer-events:all;transition:visibility 0s,opacity 1s linear}.modal_visible.modal__type_image{visibility:visible;background-color:rgba(0,0,0,.9)}
 
