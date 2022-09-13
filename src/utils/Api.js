@@ -4,20 +4,20 @@ export default class Api {
     this._headers = headers;
   }
 
-  _serverResponseCheck(res) {
+  _checkServerResponse(res) {
     return res.ok ? res.json() : Promise.reject(`Error: ${res.statusText}`);
   }
 
   getCardsList() {
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
-    }).then(this._serverResponseCheck);
+    }).then(this._checkServerResponse);
   }
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
-    }).then(this._serverResponseCheck);
+    }).then(this._checkServerResponse);
   }
 
   getServerInfo() {
@@ -32,34 +32,34 @@ export default class Api {
         name,
         link,
       }),
-    }).then(this._serverResponseCheck);
+    }).then(this._checkServerResponse);
   }
 
   removeCard(cardID) {
     return fetch(`${this._baseUrl}/cards/${cardID}`, {
       headers: this._headers,
       method: "DELETE",
-    }).then(this._serverResponseCheck);
+    }).then(this._checkServerResponse);
   }
 
   addLike(cardID) {
     return fetch(`${this._baseUrl}/cards/likes/${cardID}`, {
       headers: this._headers,
       method: "PUT",
-    }).then(this._serverResponseCheck);
+    }).then(this._checkServerResponse);
   }
 
   removeLike(cardID) {
     return fetch(`${this._baseUrl}/cards/likes/${cardID}`, {
       headers: this._headers,
       method: "DELETE",
-    }).then(this._serverResponseCheck);
+    }).then(this._checkServerResponse);
   }
 
   getLikes(cardID) {
     return fetch(`${this._baseUrl}/cards/likes/${cardID}`, {
       headers: this._headers,
-    }).then(this._serverResponseCheck);
+    }).then(this._checkServerResponse);
   }
 
   setUserInfo({ name, about }) {
@@ -70,7 +70,7 @@ export default class Api {
         name,
         about,
       }),
-    }).then(this._serverResponseCheck);
+    }).then(this._checkServerResponse);
   }
 
   setUserAvatar(avatar) {
@@ -80,6 +80,6 @@ export default class Api {
       body: JSON.stringify({
         avatar,
       }),
-    }).then(this._serverResponseCheck);
+    }).then(this._checkServerResponse);
   }
 }

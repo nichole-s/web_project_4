@@ -1,4 +1,4 @@
-import "../pages/index.css";
+import "./index.css";
 import FormValidator from "../components/FormValidator.js";
 import {
   defaultConfig,
@@ -51,12 +51,12 @@ const api = new Api({
 
 // Create the instance of form validator for the edit profile and add photo card forms
 const addCardFormValidator = new FormValidator(defaultConfig, formAdd);
-const editCardFormValidator = new FormValidator(defaultConfig, formEdit);
-const avatarEditFormValidator = new FormValidator(defaultConfig, formAvatar);
+const editProfileFormValidator = new FormValidator(defaultConfig, formEdit);
+const editAvatarFormValidator = new FormValidator(defaultConfig, formAvatar);
 
 addCardFormValidator.enableValidation();
-editCardFormValidator.enableValidation();
-avatarEditFormValidator.enableValidation();
+editProfileFormValidator.enableValidation();
+editAvatarFormValidator.enableValidation();
 
 // Create instance of the enlarged photo popup
 const imagePopup = new PopupWithImage({
@@ -151,8 +151,8 @@ api
     userInfo.setUserInfo({
       name: userData.name,
       about: userData.about,
-      avatar: userData.avatar,
     });
+    userInfo.setUserAvatar(userData.avatar);
   })
   .catch((err) =>
     console.log(
@@ -163,7 +163,7 @@ api
 // Create form to add new cards
 const addCardPopup = new PopupWithForm({
   popupSelector: ".modal-type-add-card",
-  popupSubmit: (data) => {
+  handleSubmit: (data) => {
     const { modal__cardname: name, modal__cardurl: link } = data;
     addCardPopup.renderLoading(true);
     api
@@ -184,19 +184,20 @@ addCardPopup.setEventListeners();
 
 addButton.addEventListener("click", (e) => {
   addCardPopup.open();
+  addCardFormValidator.resetValidation();
 });
 
 //Create form to change user info
 
 const editProfilePopup = new PopupWithForm({
   popupSelector: ".modal-type-edit-profile",
-  popupSubmit: (data) => {
+  handleSubmit: (data) => {
     const { modal__name: name, modal__profession: about } = data;
     editProfilePopup.renderLoading(true);
     api
       .setUserInfo({ name, about })
       .then((res) => {
-        userInfo.setUserProfile({ name: res.name, about: res.about });
+        userInfo.setUserInfo({ name: res.name, about: res.about });
         editProfilePopup.close();
       })
       .catch((err) =>
@@ -209,18 +210,19 @@ const editProfilePopup = new PopupWithForm({
 editProfilePopup.setEventListeners();
 
 //Create event listener for Profile Edit Button
-editButton.addEventListener("click", (e) => {
+editButton.addEventListener("click", () => {
   const { userName, userJob } = userInfo.getUserInfo();
-  modalName.textContent = userName;
-  modalProfession.textContent = userJob;
   editProfilePopup.open();
+  editProfileFormValidator.resetValidation();
+  modalName.value = userName;
+  modalProfession.value = userJob;
 });
 
 //Create form to update profile picture
 
 const editAvatarPopup = new PopupWithForm({
   popupSelector: ".modal-type-edit-avatar",
-  popupSubmit: (data) => {
+  handleSubmit: (data) => {
     const avatarLink = data.modal__avatarurl;
     editAvatarPopup.renderLoading(true);
     api
@@ -241,4 +243,5 @@ editAvatarPopup.setEventListeners();
 //Create event listener for Avatar Edit Button
 avatarEditButton.addEventListener("click", (e) => {
   editAvatarPopup.open();
+  editAvatarFormValidator.resetValidation();
 });

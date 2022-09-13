@@ -3,9 +3,8 @@ import Popup from "./Popup.js";
 class PopupWithConfirmation extends Popup {
   constructor({ popupSelector }) {
     super(popupSelector);
-    this._submitButton = this._popupElement.querySelector(
-      ".modal__submit_type-delete-card"
-    );
+    this._submitButton = this._popupElement.querySelector(".modal__submit");
+    this._submitButtonText = this._submitButton.textContent;
   }
 
   open(popupClick) {

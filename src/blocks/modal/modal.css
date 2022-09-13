@@ -29,13 +29,14 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.5);
-  transition: visibility 0s, opacity 1s linear;
+  transition: visibility 0s 1s, opacity 1s linear;
 }
 
 .modal_visible {
   visibility: visible;
   opacity: 1;
   pointer-events: all;
+  transition: visibility 0s, opacity 1s linear;
 }
 
 .modal_visible.modal__type_image {
