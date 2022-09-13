@@ -36,15 +36,23 @@ class FormValidator {
     return this._inputs.every((input) => input.validity.valid);
   }
 
+  _disableButton() {
+    this._button.classList.add(this._inactiveButtonClass);
+    this._button.disabled = true;
+  }
+
+  _enableButton() {
+    this._button.classList.remove(this._inactiveButtonClass);
+    this._button.disabled = false;
+  }
+
   _toggleButtonState() {
     const isValid = this._checkFormValidity();
 
     if (isValid) {
-      this._button.classList.remove(this._inactiveButtonClass);
-      this._button.disabled = false;
+      this._enableButton();
     } else {
-      this._button.classList.add(this._inactiveButtonClass);
-      this._button.disabled = true;
+      this._disableButton();
     }
   }
   _setEventListeners() {
@@ -57,7 +65,7 @@ class FormValidator {
   }
 
   resetValidation() {
-    this._toggleButtonState();
+    this._disableButton();
 
     this._inputs.forEach((input) => {
       this._hideErrorMessage(input);
