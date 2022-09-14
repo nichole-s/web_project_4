@@ -37,9 +37,6 @@ import Api from "../utils/Api.js";
 const logoImage = document.getElementById("header-logo");
 logoImage.src = headerLogoSrc;
 
-// const avatarImage = document.getElementById("avatar-photo");
-// avatarImage.src = avatarPhotoSrc;
-
 //Create instance of Api with my user information
 const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/group-9",
@@ -211,11 +208,15 @@ editProfilePopup.setEventListeners();
 
 //Create event listener for Profile Edit Button
 editButton.addEventListener("click", () => {
-  const { userName, userJob } = userInfo.getUserInfo();
-  editProfilePopup.open();
+  function fillProfileForm() {
+    const { userName, userJob } = userInfo.getUserInfo();
+    modalName.value = userName;
+    modalProfession.value = userJob;
+  }
+
   editProfileFormValidator.resetValidation();
-  modalName.value = userName;
-  modalProfession.value = userJob;
+  fillProfileForm();
+  editProfilePopup.open();
 });
 
 //Create form to update profile picture
