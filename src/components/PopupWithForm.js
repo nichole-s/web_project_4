@@ -19,11 +19,6 @@ class PopupWithForm extends Popup {
     return inputValues;
   }
 
-  close() {
-    super.close();
-    this._form.reset();
-  }
-
   renderLoading(isLoading, loadingText = "Saving...") {
     if (isLoading) {
       this._submitButton.textContent = loadingText;
